@@ -1,0 +1,91 @@
+dataset:
+  name: "disasterDataset"
+  root: "dataset/disasterDataset"
+
+  classes:
+    - huaico
+    - forest fire
+    - frost hail
+    - flood
+    - landslide
+    - drought
+    - lightning
+
+  prompts:
+    english:
+      - "A picture of a huaico, mud covering roads and houses"
+      - "A photo of a forest fire."
+      - "A photo of frost hail."
+      - "A photo of a flood."
+      - "A photo of a landslide."
+      - "A photo of drought."
+      - "A photo of lightning."
+
+    spanish:
+      - "Una imagen de huaico, lodo cubriendo calles y casas."
+      - "Una imagen de incendio forestal."
+      - "Una imagen de heladas, nieve."
+      - "Una imagen de inundación, agua."
+      - "Una imagen de deslizamiento."
+      - "Una imagen de río seco."
+      - "Una imagen de tormenta eléctrica."
+
+    portuguese:
+      - "Uma imagem de huaico, lama cobrindo ruas e casas."
+      - "Uma imagem de incêndio florestal."
+      - "Uma imagem de geada, neve."
+      - "Uma imagem de inundação, água."
+      - "Uma imagem de deslizamento de terra."
+      - "Uma imagem de rio seco."
+      - "Uma imagem de tempestade elétrica."
+
+models:
+  - name: "siglip_sigmoid"
+    checkpoint: "checkpoints/disasterDataset/siglip_sigmoid"
+    hyperparams:
+      lr: 5e-7
+      epochs: 10
+      weight_decay: 1e-4
+      factor: 0.5
+      patience: 2
+      loss_key: "sigmoid"
+
+
+  - name: "siglip_crossentropy"
+    checkpoint: "checkpoints/disasterDataset/siglip_crossentropy"
+
+  - name: "siglip_twoStage"
+    checkpoint: "checkpoints/siglip_twoStage"
+
+  - name: "siglip_twoStage_fewshot"
+    checkpoint: "checkpoints/disasterDataset/siglip_twoStage/fewshot"
+    fewshot_samples_per_class: 16
+
+  - name: "siglip2_sigmoid"
+    checkpoint: "checkpoints/disasterDataset/siglip2_sigmoid"
+
+  - name: "siglip2_crossentropy"
+    checkpoint: "checkpoints/disasterDataset/siglip2_crossentropy"
+
+  - name: "siglip2_twoStage"
+    checkpoint: "checkpoints/disasterDataset/siglip2_twoStage"
+
+  - name: "siglip2_twoStage_fewshot"
+    checkpoint: "checkpoints/disasterDataset/siglip2_twoStage/fewshot"
+    fewshot_samples_per_class: 16
+
+  - name: "openai_clip"
+    checkpoint: "checkpoints/disasterDataset/openai_clip"
+
+  - name: "mclip"
+    checkpoint: "checkpoints/disasterDataset/mclip"
+
+  - name: "sentencetransformers_clip"
+    checkpoint: "checkpoints/disasterDataset/sentencetransformers_clip"
+
+output:
+  dir: "outputs/disasternet"
+  confusion_matrix_filename: "confusion_matrix.png"
+  metrics_log_filename: "metrics.txt"
+
+device: "cuda"
