@@ -4,6 +4,7 @@ from transformers import AutoModel, AutoProcessor
 import transformers
 import open_clip
 import torch
+from fuse_clip.fuse_clip_utils import load_model
 import clip
 
 def load_siglip_pretrained(model_name=str):
@@ -41,3 +42,15 @@ def sentence_transformer_model_loader(device: str = 'cuda'):
 
     return img_model, text_model
 
+
+def fuselip_model_loader(device: str = 'cuda'):
+    model, image_processor, text_tokenizer = load_model(
+        "chs20/FuseLIP-S-CC3M-MM",
+        device=device
+    )
+
+    model.eval()
+
+    return model, image_processor, text_tokenizer
+
+    return model, processor
