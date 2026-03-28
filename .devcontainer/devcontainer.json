@@ -8,7 +8,7 @@
     "--shm-size=10g"
   ],
   "remoteUser": "root",
-  "mounts": ["source=${localWorkspaceFolder}/dataset,target=${containerWorkspaceFolder}/dataset,type=bind,consistency=cached"],
+  "mounts": ["source=/Users/emersonherreratolentino/www/laboratorio/dataset,target=${containerWorkspaceFolder}/dataset,type=bind,consistency=cached"],
   "customizations": {
       "vscode": {
         "extensions": [
