@@ -98,7 +98,7 @@ class TrainerFirstStep:
 
         plot_training_metric(train_losses, val_losses)
     
-    def save(self, model, processor, output_dir = "/output", model_type =str):
+    def save(self, model, processor, output_dir: str = "/output", model_type: str = ""):
         os.makedirs(output_dir, exist_ok=True)
         if self.loss_key == "attr":
             model.save_pretrained(f"{output_dir}/{model_type}")
@@ -132,13 +132,14 @@ class TrainerSecondStep:
             total_samples = 0
 
             for inputs, targets in self.train_loader:
-                # Mover datos a GPU
+                # Mover datos al dispositivo activo
                 inputs = {k: v.to(self.device) for k, v in inputs.items()}
                 targets = targets.to(self.device)
 
-                # Forward con autocast (solo CUDA)
-                device_type = "cuda" if str(self.device).startswith("cuda") else "cpu"
-                with torch.amp.autocast(device_type=device_type, enabled=(self.device == "cuda")):
+                # AMP solo en CUDA; en MPS/CPU se usa contexto nulo
+                is_cuda = self.device.type == "cuda" if isinstance(self.device, torch.device) else str(self.device).startswith("cuda")
+                autocast_ctx = torch.autocast(device_type="cuda", enabled=True) if is_cuda else nullcontext()
+                with autocast_ctx:
                     if self.loss_key == "attr":
                         logits = self.model(inputs["pixel_values"], no_grad_backbone=True)
                     elif self.loss_key == "dict":

@@ -9,6 +9,14 @@ from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_sc
 import matplotlib.pyplot as plt
 import seaborn as sns
 
+# Enable MPS fallback for unsupported ops (Apple Silicon GPU)
+# This fixes: NotImplementedError for aten::_upsample_bilinear2d_aa_backward.grad_input
+os.environ["PYTORCH_ENABLE_MPS_FALLBACK"] = "1"
+
+# Allow MPS to use more unified memory (24GB on M4 Pro)
+# 0.0 = no limit (recommended for M4 Pro with 16GB+)
+os.environ["PYTORCH_MPS_HIGH_WATERMARK_RATIO"] = "0.0"
+
 # Make engine/ and models/ importable from root
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "engine"))
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "models"))
@@ -42,6 +50,7 @@ def get_device(requested: str = "cuda") -> str:
             return "cuda"
         elif torch.backends.mps.is_available():
             print("[INFO] CUDA not available, using MPS (Apple Silicon)")
+            print("[INFO] MPS fallback enabled for unsupported ops")
             return "mps"
         else:
             print("[INFO] CUDA not available, falling back to CPU")
@@ -50,11 +59,15 @@ def get_device(requested: str = "cuda") -> str:
 
 
 def get_num_workers(device: str) -> int:
-    return 4 if device == "cuda" else 0
+    if device == "cuda":
+        return 4
+    if device == "mps":
+        return 8
+    return 0
 
 
 def get_batch_size(requested: int, device: str) -> int:
-    if device == "mps" or device == "cpu":
+    if device == "cpu":
         return min(requested, 2)
     return requested
 
@@ -91,18 +104,23 @@ def evaluate_contrastive(model, test_df, classes, description_map, processor, de
     from PIL import Image
 
     model.eval()
+    base_model = model.base_model if hasattr(model, "base_model") else model
 
     # Encode class text prompts
     prompts = [description_map[cls] for cls in classes]
     text_inputs = processor(text=prompts, return_tensors="pt", padding=True, truncation=True, max_length=64).to(device)
 
     with torch.no_grad():
-        # Handle both AutoModel and custom wrappers
-        if hasattr(model, "base_model"):
-            text_out = model.base_model(**text_inputs)
+        if hasattr(base_model, "get_text_features"):
+            text_features = base_model.get_text_features(
+                input_ids=text_inputs["input_ids"],
+                attention_mask=text_inputs.get("attention_mask", None),
+            )
         else:
-            text_out = model(**text_inputs)
-        text_embeds = F.normalize(text_out.text_embeds, dim=-1)  # (num_classes, D)
+            text_out = base_model(**text_inputs)
+            # Use pooler_output for text embeddings (aggregated representation)
+            text_features = text_out.pooler_output
+        text_embeds = F.normalize(text_features, dim=-1)  # (num_classes, D)
 
     all_preds, all_targets = [], []
     label2id = {cls: i for i, cls in enumerate(classes)}
@@ -122,11 +140,18 @@ def evaluate_contrastive(model, test_df, classes, description_map, processor, de
         img_inputs = processor(images=image, return_tensors="pt").to(device)
 
         with torch.no_grad():
-            if hasattr(model, "base_model"):
-                img_out = model.base_model(**img_inputs)
+            if hasattr(base_model, "get_image_features"):
+                image_feature_kwargs = {"pixel_values": img_inputs["pixel_values"]}
+                if "pixel_attention_mask" in img_inputs:
+                    image_feature_kwargs["pixel_attention_mask"] = img_inputs["pixel_attention_mask"]
+                if "spatial_shapes" in img_inputs:
+                    image_feature_kwargs["spatial_shapes"] = img_inputs["spatial_shapes"]
+                image_features = base_model.get_image_features(**image_feature_kwargs)
             else:
-                img_out = model(**img_inputs)
-            img_embed = F.normalize(img_out.image_embeds, dim=-1)  # (1, D)
+                img_out = base_model(**img_inputs)
+                # Use pooler_output for image embeddings (aggregated representation)
+                image_features = img_out.pooler_output
+            img_embed = F.normalize(image_features, dim=-1)  # (1, D)
 
         sims = (img_embed @ text_embeds.t()).squeeze(0)
         pred = sims.argmax().item()

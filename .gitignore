@@ -22,4 +22,6 @@ results/models/
 *.ckpt
 !results/logs/**/*.png
 dataset/
+dataset
 venv/
+outputs/

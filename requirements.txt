@@ -1,25 +1,34 @@
+# Modelos y backends
+transformers
 sentencepiece
 protobuf
-transformers
-scikit-learn
-pillow
-pandas
-numpy
-tqdm
-matplotlib
-seaborn
-ipywidgets
-widgetsnbextension
-notebook
-langdetect
+huggingface-hub
+accelerate
+einops
+
+# Embeddings y CLIP
 sentence-transformers
 multilingual-clip
 open_clip_torch
 ftfy
+
+# Datos y métricas
+scikit-learn
+pandas
+numpy
+matplotlib
+seaborn
+tqdm
+pillow
+
+# Notebooks
+ipywidgets
+notebook
+widgetsnbextension
+
+# Utilidades
+langdetect
 PyYAML
-torch
-torchvision
-huggingface-hub
-einops
-accelerate
-triton
+
+# NOTA: instalar PyTorch por separado ANTES de este archivo:
+# pip install torch torchvision torchaudio

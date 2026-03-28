@@ -66,7 +66,8 @@ class SigLIPLinearClassifier(nn.Module):
             if prompts:
                 inputs = processor(text=prompts, return_tensors="pt", padding=True).to(x.device)
                 device_type = "cuda" if str(x.device.type).startswith("cuda") else "cpu"
-                with torch.amp.autocast(device_type=device_type, enabled=(device_type == "cuda")):
+                autocast_ctx = torch.autocast(device_type="cuda", enabled=True) if device_type == "cuda" else nullcontext()
+                with autocast_ctx:
                     new_embeddings = self.text(**inputs).last_hidden_state[:, 0, :]
                 new_embeddings = F.normalize(new_embeddings, dim=-1)
                 cat2new = {cat: new for cat, new in zip(missing_classnames, new_embeddings)}
@@ -149,7 +150,8 @@ class SigLIP2LinearClassifier(nn.Module):
             if prompts:
                 inputs = processor(text=prompts, return_tensors="pt", padding=True).to(x.device)
                 device_type = "cuda" if str(x.device.type).startswith("cuda") else "cpu"
-                with torch.amp.autocast(device_type=device_type, enabled=(device_type == "cuda")):
+                autocast_ctx = torch.autocast(device_type="cuda", enabled=True) if device_type == "cuda" else nullcontext()
+                with autocast_ctx:
                     new_embeddings = self.text(**inputs).last_hidden_state[:, 0, :]
                 new_embeddings = F.normalize(new_embeddings, dim=-1)
                 cat2new = {cat: new for cat, new in zip(missing_classnames, new_embeddings)}
