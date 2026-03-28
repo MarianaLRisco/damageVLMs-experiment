@@ -5,6 +5,7 @@ __pycache__/
 *.pyc
 .fuselip/
 results/checkpoints/
+checkpoints/
 .venv/
 results/models/
 *.pkl
@@ -17,6 +18,7 @@ results/models/
 *.keras
 *.h5
 *.pt
+*.pth
 *.ckpt
 !results/logs/**/*.png
 dataset/
