@@ -1,6 +1,6 @@
 from PIL import Image, ImageFile
+from torch.utils.data import Dataset
 import os
-import torch.nn as nn
 import pandas as pd
 import torch
 
@@ -57,7 +57,7 @@ class ImageTextTwoStage(Dataset):
         label = row['labels'] 
 
         # Load and process image
-        image = Image.open(os.path.join('disasterDataset',image_path).replace("\\", "/")).convert('RGB')
+        image = Image.open(image_path.replace("\\", "/")).convert('RGB')
 
         label = self.label2id[label]  
 

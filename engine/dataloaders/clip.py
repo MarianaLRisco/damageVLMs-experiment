@@ -1,16 +1,13 @@
 from PIL import Image, ImageFile
+from torch.utils.data import Dataset
 import os
 
+
 class ImageTextClip(Dataset):
-    def __init__(self, data):
-        """
-        Args:
-            image_dir (str): Directory containing images
-            text_file (str): Path to text file containing image descriptions
-            processor: SigLIP2 processor for handling images and texts
-        """
+    def __init__(self, data, tokenizer, preprocess):
         self.data = data
-        # self.image_text_pairs = []
+        self.tokenizer = tokenizer
+        self.preprocess = preprocess
 
     def __len__(self):
         return len(self.data)
@@ -20,10 +17,8 @@ class ImageTextClip(Dataset):
         image_path = row['image_path']
         description = row['post_text']
 
-        # Load and process image
-        image = Image.open(os.path.join(image_path).replace("\\", "/")).convert('RGB')
-
-        image_tensor  = self.preprocess(image)
+        image = Image.open(image_path.replace("\\", "/")).convert('RGB')
+        image_tensor = self.preprocess(image)
         tokens = self.tokenizer(description, return_tensors='pt', padding='max_length',
                                 truncation=True, max_length=77)
 

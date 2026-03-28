@@ -2,7 +2,7 @@ import torch
 import torch.nn as nn
 
 class FineTuneContrastive(nn.Module):
-    def __init__(self, modelA, modelB, device='cuda'):
+    def __init__(self, modelA, modelB, device='cpu'):
         super().__init__()
         self.modelA = modelA  
         self.modelB = modelB  

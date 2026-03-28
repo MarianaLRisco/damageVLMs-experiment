@@ -1,0 +1,17 @@
+Accuracy:  0.8265
+Precision: 0.8335
+Recall:    0.8265
+F1:        0.8284
+
+                        precision    recall  f1-score   support
+
+            non_damage       0.76      0.86      0.81       146
+                 fires       0.55      0.55      0.55        47
+                 flood       0.80      0.80      0.80        46
+damaged_infrastructure       0.70      0.70      0.70        37
+        damaged_nature       0.72      0.82      0.77        22
+          human_damage       0.94      0.87      0.91       290
+
+              accuracy                           0.83       588
+             macro avg       0.75      0.77      0.76       588
+          weighted avg       0.83      0.83      0.83       588

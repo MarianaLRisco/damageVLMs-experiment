@@ -27,7 +27,7 @@ class InferenceClip:
         os.makedirs(self.output_cfg["dir"], exist_ok=True)
 
 
-    def torchfunction(self, device="cuda"):
+    def torchfunction(self, device="cpu"):
         with torch.no_grad():
             tokens = self.tokenizer(self.prompts).to(device)
             text_emb = self.model.encode_text(tokens)
@@ -35,7 +35,7 @@ class InferenceClip:
         return text_emb
 
 
-    def inference(self, device="cuda"):
+    def inference(self, device="cpu"):
         text_emb = self.torchfunction(device)
         preds, probs, errors = [], [], []
 

@@ -1,13 +1,13 @@
 sentencepiece
 protobuf
-transformers 
+transformers
 scikit-learn
 pillow
 pandas
 numpy
 tqdm
 matplotlib
-seaborn 
+seaborn
 ipywidgets
 widgetsnbextension
 notebook
@@ -16,5 +16,10 @@ sentence-transformers
 multilingual-clip
 open_clip_torch
 ftfy
-argparse
 PyYAML
+torch
+torchvision
+huggingface-hub
+einops
+accelerate
+triton

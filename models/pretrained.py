@@ -4,19 +4,18 @@ from transformers import AutoModel, AutoProcessor
 import transformers
 import open_clip
 import torch
-from fuse_clip.fuse_clip_utils import load_model
 import clip
 
-def load_siglip_pretrained(model_name=str):
-    model = AutoModel.from_pretrained(model_name)
+def load_siglip_pretrained(model_name: str, device: str = 'cpu'):
+    model = AutoModel.from_pretrained(model_name, low_cpu_mem_usage=True)
     processor = AutoProcessor.from_pretrained(model_name)
     return model, processor
 
 # mclip
-def mclip_model_loader(model_name: str, device: str = 'cuda'):
+def mclip_model_loader(model_name: str, device: str = 'cpu'):
     # model_name = 'M-CLIP/XLM-Roberta-Large-Vit-B-32'
 
-    text_model = pt_multilingual_clip.MultilingualCLIP.from_pretrained(model_name)
+    text_model = pt_multilingual_clip.MultilingualCLIP.from_pretrained(model_name).to(device)
     tokenizer  = transformers.AutoTokenizer.from_pretrained(model_name)
 
     model, preprocess = clip.load("ViT-B/32", device=device)
@@ -25,7 +24,7 @@ def mclip_model_loader(model_name: str, device: str = 'cuda'):
 
 
 # open_clip model 
-def openclip_model_loader(model_name: str, device: str = 'cuda'):
+def openclip_model_loader(model_name: str, device: str = 'cpu'):
     model_name = 'ViT-B-32'
     pretrained = 'laion2b_s34b_b79k'
     model, _, preprocess = open_clip.create_model_and_transforms(model_name, pretrained=pretrained)
@@ -36,14 +35,20 @@ def openclip_model_loader(model_name: str, device: str = 'cuda'):
     return model, tokenizer, preprocess
 
 # sentence transformer model
-def sentence_transformer_model_loader(device: str = 'cuda'):
-    img_model = SentenceTransformer('clip-ViT-B-32')
-    text_model = SentenceTransformer('sentence-transformers/clip-ViT-B-32-multilingual-v1')
+def sentence_transformer_model_loader(device: str = 'cpu'):
+    img_model = SentenceTransformer('clip-ViT-B-32', device=device)
+    text_model = SentenceTransformer('sentence-transformers/clip-ViT-B-32-multilingual-v1', device=device)
 
     return img_model, text_model
 
 
-def fuselip_model_loader(device: str = 'cuda'):
+def fuselip_model_loader(device: str = 'cpu'):
+    try:
+        from fuse_clip.fuse_clip_utils import load_model
+    except ImportError:
+        raise ImportError(
+            "fuse_clip is not installed. Install it before running fuselip_mlp experiments."
+        )
     model, image_processor, text_tokenizer = load_model(
         "chs20/FuseLIP-S-CC3M-MM",
         device=device
@@ -52,5 +57,3 @@ def fuselip_model_loader(device: str = 'cuda'):
     model.eval()
 
     return model, image_processor, text_tokenizer
-
-    return model, processor

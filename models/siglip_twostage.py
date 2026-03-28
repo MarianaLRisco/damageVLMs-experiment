@@ -19,7 +19,7 @@ def freeze_all_except_layernorm(model):
             param.requires_grad = False
 
 class SigLIPLinearClassifier(nn.Module):
-    def __init__(self, base_model, processor, classnames, temperature=0.07, description_map=None):
+    def __init__(self, base_model, processor, classnames, temperature=0.07, description_map=None, device='cpu'):
         super().__init__()
         self.base_model = base_model
         self.visual = base_model.base_model.vision_model
@@ -29,16 +29,11 @@ class SigLIPLinearClassifier(nn.Module):
 
         self.classnames = classnames
         self.description_map = description_map
-        
-        # Inicializar el clasificador con los embeddings de texto
-        self._init_classifier(classnames)
-
         self.cat2id = {cat: i for i, cat in enumerate(classnames)}
 
-        # Inicializar el clasificador con los embeddings de texto
-        self._init_classifier(self.classnames)
+        self._init_classifier(classnames, processor, device)
 
-    def _init_classifier(self, classnames, processor, device='cuda'):
+    def _init_classifier(self, classnames, processor, device='cpu'):
         # prompts = [template.format(cls) for cls in classnames]
         prompts = [self.description_map[cls] for cls in classnames]
         with torch.no_grad():
@@ -70,7 +65,8 @@ class SigLIPLinearClassifier(nn.Module):
 
             if prompts:
                 inputs = processor(text=prompts, return_tensors="pt", padding=True).to(x.device)
-                with torch.amp.autocast(device_type="cuda", dtype=torch.float16):
+                device_type = "cuda" if str(x.device.type).startswith("cuda") else "cpu"
+                with torch.amp.autocast(device_type=device_type, enabled=(device_type == "cuda")):
                     new_embeddings = self.text(**inputs).last_hidden_state[:, 0, :]
                 new_embeddings = F.normalize(new_embeddings, dim=-1)
                 cat2new = {cat: new for cat, new in zip(missing_classnames, new_embeddings)}
@@ -94,26 +90,22 @@ class SigLIPLinearClassifier(nn.Module):
         return logits
 
 class SigLIP2LinearClassifier(nn.Module):
-    def __init__(self, base_model, classnames, temperature=0.07, description_map=None):
+    def __init__(self, base_model, processor, classnames, temperature=0.07, description_map=None, device='cpu'):
         super().__init__()
         self.base_model = base_model
         self.visual = base_model.base_model.vision_model
         self.text = base_model.base_model.text_model
+        self.processor = processor
         self.temperature = temperature
 
         self.classnames = classnames
         self.description_map = description_map
         self.patch_size = 16
-        
-        # Inicializar el clasificador con los embeddings de texto
-        self._init_classifier(classnames)
-
         self.cat2id = {cat: i for i, cat in enumerate(classnames)}
 
-        # Inicializar el clasificador con los embeddings de texto
-        self._init_classifier(self.classnames)
+        self._init_classifier(classnames, processor, device)
 
-    def _init_classifier(self, classnames, processor, device='cuda'):
+    def _init_classifier(self, classnames, processor, device='cpu'):
         # prompts = [template.format(cls) for cls in classnames]
         prompts = [self.description_map[cls] for cls in classnames]
         with torch.no_grad():
@@ -156,7 +148,8 @@ class SigLIP2LinearClassifier(nn.Module):
 
             if prompts:
                 inputs = processor(text=prompts, return_tensors="pt", padding=True).to(x.device)
-                with torch.amp.autocast(device_type="cuda", dtype=torch.float16):
+                device_type = "cuda" if str(x.device.type).startswith("cuda") else "cpu"
+                with torch.amp.autocast(device_type=device_type, enabled=(device_type == "cuda")):
                     new_embeddings = self.text(**inputs).last_hidden_state[:, 0, :]
                 new_embeddings = F.normalize(new_embeddings, dim=-1)
                 cat2new = {cat: new for cat, new in zip(missing_classnames, new_embeddings)}

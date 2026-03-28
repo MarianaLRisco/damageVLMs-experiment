@@ -17,7 +17,17 @@ def plot_training_metric(train_losses, val_losses):
     plt.title('Training and Validation Loss') 
     plt.legend()
     plt.grid(True)
-    plt.show()
+    plt.savefig("training_loss.png")
+    plt.close()
+
+def freeze_all_except_layernorm(model):
+    """Congela todos los parámetros excepto las capas LayerNorm (Stage 1 de TwoStage)."""
+    for name, param in model.named_parameters():
+        if "layernorm" in name.lower() or "layer_norm" in name.lower():
+            param.requires_grad = True
+        else:
+            param.requires_grad = False
+
 
 #siglip two-stage trainer
 class TrainerFirstStep:
@@ -126,8 +136,9 @@ class TrainerSecondStep:
                 inputs = {k: v.to(self.device) for k, v in inputs.items()}
                 targets = targets.to(self.device)
 
-                # Forward con autocast
-                with torch.amp.autocast(device_type='cuda', dtype=torch.float16):
+                # Forward con autocast (solo CUDA)
+                device_type = "cuda" if str(self.device).startswith("cuda") else "cpu"
+                with torch.amp.autocast(device_type=device_type, enabled=(self.device == "cuda")):
                     if self.loss_key == "attr":
                         logits = self.model(inputs["pixel_values"], no_grad_backbone=True)
                     elif self.loss_key == "dict":

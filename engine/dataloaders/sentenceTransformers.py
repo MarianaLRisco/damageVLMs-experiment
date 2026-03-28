@@ -1,7 +1,6 @@
 from PIL import Image, ImageFile
-from sentence_transformers import SentenceTransformer, util
+from torch.utils.data import Dataset
 import os
-import torch.nn as nn
 
 class ImageTextSentenceTransformers(Dataset):
     def __init__(self, data, processor):
@@ -23,7 +22,7 @@ class ImageTextSentenceTransformers(Dataset):
         text = row['post_text']
 
         # Carga de imagen
-        image = Image.open(os.path.join('disasterDataset', image_path).replace("\\", "/")).convert('RGB')
+        image = Image.open(image_path.replace("\\", "/")).convert('RGB')
 
         return image, text
 

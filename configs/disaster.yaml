@@ -1,0 +1,172 @@
+datasets:
+  - name: "damage_dataset"
+    root: "dataset/damage_dataset"
+    classes:
+      - non_damage
+      - fires
+      - flood
+      - damaged_infrastructure
+      - damaged_nature
+      - human_damage
+    prompts:
+      english:
+        - "A photo showing no damage, normal scene."
+        - "A photo of a fire or burning building."
+        - "A photo of a flood, water covering streets or buildings."
+        - "A photo of damaged infrastructure, broken roads or bridges."
+        - "A photo of damaged nature, fallen trees or destroyed landscape."
+        - "A photo of human damage, injured or affected people."
+
+  - name: "crisisMMD"
+    root: "dataset/crisisMMD"
+    classes:
+      - informative
+      - not_informative
+    prompts:
+      english:
+        - "An informative image showing damage, crisis, or disaster impact."
+        - "A non-informative image with no relevant crisis content."
+
+models:
+  - name: "siglip_sigmoid"
+    checkpoint: "checkpoints/siglip_sigmoid"
+    pretrained: "google/siglip-base-patch16-256-multilingual"
+    hyperparams:
+      lr: 5.0e-7
+      epochs: 10
+      weight_decay: 1.0e-4
+      factor: 0.5
+      patience: 2
+      loss_key: "sigmoid"
+      batch_size: 32
+
+  - name: "siglip_crossentropy"
+    checkpoint: "checkpoints/siglip_crossentropy"
+    pretrained: "google/siglip-base-patch16-256-multilingual"
+    hyperparams:
+      lr: 5.0e-7
+      epochs: 10
+      weight_decay: 1.0e-4
+      factor: 0.5
+      patience: 2
+      loss_key: "crossentropy"
+      batch_size: 32
+
+  - name: "siglip_twoStage"
+    checkpoint: "checkpoints/siglip_twoStage"
+    pretrained: "google/siglip-base-patch16-256-multilingual"
+    hyperparams:
+      stage1_lr: 1.0e-3
+      stage1_epochs: 30
+      stage1_weight_decay: 1.0e-3
+      stage2_lr: 1.0e-4
+      stage2_epochs: 50
+      stage2_weight_decay: 1.0e-3
+      stage2_T_max: 70
+      batch_size: 32
+      loss_key: "attr"
+
+  - name: "siglip_twoStage_fewshot"
+    checkpoint: "checkpoints/siglip_twoStage_fewshot"
+    pretrained: "google/siglip-base-patch16-256-multilingual"
+    hyperparams:
+      stage1_lr: 1.0e-3
+      stage1_epochs: 30
+      stage1_weight_decay: 1.0e-3
+      stage2_lr: 1.0e-3
+      stage2_epochs: 50
+      stage2_weight_decay: 1.0e-3
+      stage2_T_max: 70
+      batch_size: 32
+      loss_key: "attr"
+      fewshot_samples_per_class: 16
+
+  - name: "siglip2_sigmoid"
+    checkpoint: "checkpoints/siglip2_sigmoid"
+    pretrained: "google/siglip2-base-patch16-naflex"
+    hyperparams:
+      lr: 5.0e-7
+      epochs: 10
+      weight_decay: 1.0e-4
+      factor: 0.5
+      patience: 2
+      loss_key: "sigmoid"
+      batch_size: 32
+
+  - name: "siglip2_crossentropy"
+    checkpoint: "checkpoints/siglip2_crossentropy"
+    pretrained: "google/siglip2-base-patch16-naflex"
+    hyperparams:
+      lr: 5.0e-7
+      epochs: 10
+      weight_decay: 1.0e-4
+      factor: 0.5
+      patience: 2
+      loss_key: "crossentropy"
+      batch_size: 32
+
+  - name: "siglip2_twoStage"
+    checkpoint: "checkpoints/siglip2_twoStage"
+    pretrained: "google/siglip2-base-patch16-naflex"
+    hyperparams:
+      stage1_lr: 1.0e-3
+      stage1_epochs: 30
+      stage1_weight_decay: 1.0e-3
+      stage2_lr: 1.0e-4
+      stage2_epochs: 50
+      stage2_weight_decay: 1.0e-3
+      stage2_T_max: 70
+      batch_size: 32
+      loss_key: "dict"
+
+  - name: "siglip2_twoStage_fewshot"
+    checkpoint: "checkpoints/siglip2_twoStage_fewshot"
+    pretrained: "google/siglip2-base-patch16-naflex"
+    hyperparams:
+      stage1_lr: 1.0e-3
+      stage1_epochs: 30
+      stage1_weight_decay: 1.0e-3
+      stage2_lr: 1.0e-3
+      stage2_epochs: 50
+      stage2_weight_decay: 1.0e-3
+      stage2_T_max: 70
+      batch_size: 32
+      loss_key: "dict"
+      fewshot_samples_per_class: 16
+
+  - name: "fuselip_mlp_image"
+    checkpoint: "checkpoints/fuselip_mlp_image"
+    hyperparams:
+      mode: "image"
+      embed_dim: 384
+      lr: 1.0e-3
+      epochs: 30
+      weight_decay: 1.0e-4
+      batch_size: 64
+
+  - name: "fuselip_mlp_text"
+    checkpoint: "checkpoints/fuselip_mlp_text"
+    hyperparams:
+      mode: "text"
+      embed_dim: 384
+      lr: 1.0e-3
+      epochs: 30
+      weight_decay: 1.0e-4
+      batch_size: 64
+
+  - name: "fuselip_mlp_multimodal"
+    checkpoint: "checkpoints/fuselip_mlp_multimodal"
+    hyperparams:
+      mode: "multimodal"
+      embed_dim: 384
+      lr: 1.0e-3
+      epochs: 30
+      weight_decay: 1.0e-4
+      batch_size: 64
+
+output:
+  dir: "outputs/disasternet"
+  confusion_matrix_filename: "confusion_matrix.png"
+  metrics_log_filename: "metrics.txt"
+
+device: "cuda"

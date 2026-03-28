@@ -1,4 +1,5 @@
 from PIL import Image, ImageFile
+from torch.utils.data import Dataset
 import os
 
 class ImageTextMclip(Dataset):

@@ -6,7 +6,7 @@ import torch
 class SigLIPCrossentropy(nn.Module):
     def __init__(self, model_name=str, dropout_prob=0.4, temperature=0.07):
         super().__init__()
-        self.base_model = AutoModel.from_pretrained(model_name)
+        self.base_model = AutoModel.from_pretrained(model_name, low_cpu_mem_usage=True)
         self.dropout = nn.Dropout(p=dropout_prob)
         self.temperature = temperature
         self.patch_size = 16  # patch size que usa el modelo Naflex/SigLIP2
@@ -57,7 +57,7 @@ class SigLIPCrossentropy(nn.Module):
 class SigLIP2Crossentropy(nn.Module):
     def __init__(self, model_name="google/siglip2-base-patch16-naflex", dropout_prob=0.4, temperature=0.07):
         super().__init__()
-        self.base_model = AutoModel.from_pretrained(model_name)
+        self.base_model = AutoModel.from_pretrained(model_name, low_cpu_mem_usage=True)
         self.dropout = nn.Dropout(p=dropout_prob)
         self.temperature = temperature
         self.patch_size = 16  # patch size que usa el modelo Naflex/SigLIP2
