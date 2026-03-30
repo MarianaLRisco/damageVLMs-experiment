@@ -54,10 +54,13 @@ class ImageTextTwoStage(Dataset):
         row = self.data.iloc[idx]
         image_path = row['image_path']
         description = row['post_text']
-        label = row['labels'] 
+        label = row['labels']
 
         # Load and process image
         image = Image.open(image_path.replace("\\", "/")).convert('RGB')
+
+        if not isinstance(description, str):
+            description = ""
 
         label = self.label2id[label]  
 

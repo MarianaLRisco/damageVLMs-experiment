@@ -14,12 +14,15 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 
-def save_metrics(metrics, output_dir, name):
+def save_metrics(metrics, output_dir, name, report=None):
     """Save metrics to text file."""
     os.makedirs(output_dir, exist_ok=True)
     with open(os.path.join(output_dir, f"{name}_metrics.txt"), "w") as f:
         for k, v in metrics.items():
             f.write(f"{k}: {v:.4f}\n")
+        if report:
+            f.write("\n")
+            f.write(report)
 
 
 def save_confusion_matrix(cm, label_names, output_dir, name):
@@ -86,10 +89,12 @@ def evaluate_classifier(
     )
     print(classification_report(all_targets, all_preds, target_names=classes, zero_division=0))
 
+    report = classification_report(all_targets, all_preds, target_names=classes, zero_division=0)
     cm = confusion_matrix(all_targets, all_preds)
     save_metrics(
         {"accuracy": acc, "precision": precision, "recall": recall, "f1": f1},
         output_dir,
         name,
+        report=report,
     )
     save_confusion_matrix(cm, classes, output_dir, name)

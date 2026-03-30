@@ -61,14 +61,20 @@ class Trainer:
             attention_mask = batch.get("attention_mask")
             if attention_mask is not None:
                 attention_mask = attention_mask.to(self.device)
+            spatial_shapes = batch.get("spatial_shapes")
+            if spatial_shapes is not None:
+                spatial_shapes = spatial_shapes.to(self.device)
 
-            # Forward pass
-            outputs = self.model(
+            # Forward pass — only pass spatial_shapes if the model accepts it
+            forward_kwargs = dict(
                 input_ids=input_ids,
                 pixel_values=pixel_values,
                 attention_mask=attention_mask,
                 return_loss=True,
             )
+            if spatial_shapes is not None:
+                forward_kwargs["spatial_shapes"] = spatial_shapes
+            outputs = self.model(**forward_kwargs)
 
             loss = outputs["loss"]
 
@@ -91,14 +97,20 @@ class Trainer:
                 attention_mask = batch.get("attention_mask")
                 if attention_mask is not None:
                     attention_mask = attention_mask.to(self.device)
+                spatial_shapes = batch.get("spatial_shapes")
+                if spatial_shapes is not None:
+                    spatial_shapes = spatial_shapes.to(self.device)
 
-                # Forward pass
-                outputs = self.model(
+                # Forward pass — only pass spatial_shapes if the model accepts it
+                forward_kwargs = dict(
                     input_ids=input_ids,
                     pixel_values=pixel_values,
                     attention_mask=attention_mask,
                     return_loss=True,
                 )
+                if spatial_shapes is not None:
+                    forward_kwargs["spatial_shapes"] = spatial_shapes
+                outputs = self.model(**forward_kwargs)
 
                 loss = outputs["loss"]
                 total_loss += loss.item()
@@ -122,7 +134,7 @@ class Trainer:
         plot_training_metric(train_losses, val_losses)
 
     def save(self, model, processor, output_dir: str = "/output", model_type: str = ""):
-        os.makedirs(output_dir, exist_ok=True)
+        os.makedirs(f"{output_dir}/{model_type}", exist_ok=True)
         if self.loss_key == "sigmoid":
             model.save_pretrained(f"{output_dir}/{model_type}")
         elif self.loss_key == "crossentropy":

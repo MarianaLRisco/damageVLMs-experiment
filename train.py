@@ -1,6 +1,10 @@
 import argparse
 import os
 import sys
+import warnings
+
+warnings.filterwarnings("ignore", message="pkg_resources is deprecated", category=UserWarning)
+warnings.filterwarnings("ignore", message="Setuptools is replacing distutils", category=UserWarning)
 
 # CRÍTICO: Configurar PYTHONPATH para FuseLIP ANTES de cualquier import
 # Esto asegura que se use la versión correcta de open_clip compatible con FuseLIP

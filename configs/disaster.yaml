@@ -32,7 +32,7 @@ models:
     checkpoint: "checkpoints/siglip_sigmoid"
     pretrained: "google/siglip-base-patch16-256-multilingual"
     hyperparams:
-      lr: 5.0e-7
+      lr: 5.0e-6
       epochs: 10
       weight_decay: 1.0e-4
       factor: 0.5
@@ -44,7 +44,7 @@ models:
     checkpoint: "checkpoints/siglip_crossentropy"
     pretrained: "google/siglip-base-patch16-256-multilingual"
     hyperparams:
-      lr: 5.0e-7
+      lr: 5.0e-6
       epochs: 10
       weight_decay: 1.0e-4
       factor: 0.5
@@ -56,13 +56,13 @@ models:
     checkpoint: "checkpoints/siglip_twoStage"
     pretrained: "google/siglip-base-patch16-256-multilingual"
     hyperparams:
-      stage1_lr: 1.0e-3
-      stage1_epochs: 30
+      stage1_lr: 1.0e-4
+      stage1_epochs: 10
       stage1_weight_decay: 1.0e-3
       stage2_lr: 1.0e-4
-      stage2_epochs: 50
+      stage2_epochs: 20
       stage2_weight_decay: 1.0e-3
-      stage2_T_max: 70
+      stage2_T_max: 30
       batch_size: 32
       loss_key: "attr"
 
@@ -71,12 +71,12 @@ models:
     pretrained: "google/siglip-base-patch16-256-multilingual"
     hyperparams:
       stage1_lr: 1.0e-3
-      stage1_epochs: 30
+      stage1_epochs: 10
       stage1_weight_decay: 1.0e-3
       stage2_lr: 1.0e-3
-      stage2_epochs: 50
+      stage2_epochs: 20
       stage2_weight_decay: 1.0e-3
-      stage2_T_max: 70
+      stage2_T_max: 30
       batch_size: 32
       loss_key: "attr"
       fewshot_samples_per_class: 16
@@ -85,11 +85,11 @@ models:
     checkpoint: "checkpoints/siglip2_sigmoid"
     pretrained: "google/siglip2-base-patch16-naflex"
     hyperparams:
-      lr: 5.0e-7
+      lr: 1.0e-6
       epochs: 10
       weight_decay: 1.0e-4
       factor: 0.5
-      patience: 2
+      patience: 3
       loss_key: "sigmoid"
       batch_size: 32
 
@@ -97,11 +97,11 @@ models:
     checkpoint: "checkpoints/siglip2_crossentropy"
     pretrained: "google/siglip2-base-patch16-naflex"
     hyperparams:
-      lr: 5.0e-7
+      lr: 1.0e-6
       epochs: 10
       weight_decay: 1.0e-4
       factor: 0.5
-      patience: 2
+      patience: 3
       loss_key: "crossentropy"
       batch_size: 32
 
@@ -109,13 +109,13 @@ models:
     checkpoint: "checkpoints/siglip2_twoStage"
     pretrained: "google/siglip2-base-patch16-naflex"
     hyperparams:
-      stage1_lr: 1.0e-3
-      stage1_epochs: 30
-      stage1_weight_decay: 1.0e-3
+      stage1_lr: 1.0e-4
+      stage1_epochs: 10
+      stage1_weight_decay: 1.0e-4
       stage2_lr: 1.0e-4
-      stage2_epochs: 50
-      stage2_weight_decay: 1.0e-3
-      stage2_T_max: 70
+      stage2_epochs: 20
+      stage2_weight_decay: 1.0e-4
+      stage2_T_max: 30
       batch_size: 32
       loss_key: "dict"
 
@@ -123,13 +123,13 @@ models:
     checkpoint: "checkpoints/siglip2_twoStage_fewshot"
     pretrained: "google/siglip2-base-patch16-naflex"
     hyperparams:
-      stage1_lr: 1.0e-3
-      stage1_epochs: 30
-      stage1_weight_decay: 1.0e-3
-      stage2_lr: 1.0e-3
-      stage2_epochs: 50
-      stage2_weight_decay: 1.0e-3
-      stage2_T_max: 70
+      stage1_lr: 1.0e-4
+      stage1_epochs: 10
+      stage1_weight_decay: 1.0e-4
+      stage2_lr: 1.0e-4
+      stage2_epochs: 20
+      stage2_weight_decay: 1.0e-4
+      stage2_T_max: 30
       batch_size: 32
       loss_key: "dict"
       fewshot_samples_per_class: 16
@@ -140,7 +140,7 @@ models:
       mode: "image"
       embed_dim: 384
       lr: 1.0e-3
-      epochs: 30
+      epochs: 20
       weight_decay: 1.0e-4
       batch_size: 64
 
@@ -150,7 +150,7 @@ models:
       mode: "text"
       embed_dim: 384
       lr: 1.0e-3
-      epochs: 30
+      epochs: 20
       weight_decay: 1.0e-4
       batch_size: 64
 
@@ -160,7 +160,7 @@ models:
       mode: "multimodal"
       embed_dim: 384
       lr: 1.0e-3
-      epochs: 30
+      epochs: 20
       weight_decay: 1.0e-4
       batch_size: 64
 
