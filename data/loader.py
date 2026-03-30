@@ -1,9 +1,9 @@
 import os
 import pandas as pd
 from sklearn.model_selection import train_test_split
+from typing import Tuple, Any
 
-
-def load_damage_dataset(root: str):
+def load_damage_dataset(root: str) -> Tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
     """
     Carga el damage_dataset desde sus CSVs pre-divididos.
 
@@ -28,15 +28,16 @@ def load_damage_dataset(root: str):
         )
 
     # Crear split de validación (10% del train)
-    train_df, val_df = train_test_split(train_full, test_size=0.1, random_state=42, stratify=train_full["labels"])
-    train_df = train_df.reset_index(drop=True)
-    val_df = val_df.reset_index(drop=True)
+    train_result: Any = train_test_split(train_full, test_size=0.1, random_state=42, stratify=train_full["labels"])
+    train_df_split, val_df_split = train_result
+    train_df = train_df_split.reset_index(drop=True)
+    val_df = val_df_split.reset_index(drop=True)
     test_df = test_df.reset_index(drop=True)
 
     return train_df, val_df, test_df
 
 
-def load_crisisMMD(root: str):
+def load_crisisMMD(root: str) -> Tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
     """
     Carga el CrisisMMD desde sus CSVs pre-divididos (train/dev/test).
 

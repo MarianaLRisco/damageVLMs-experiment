@@ -39,16 +39,13 @@ def get_dataloader(model_type, data, processor=None, tokenizer=None, preprocess=
     val_dataset   = DatasetClass(data=val_data, **dataset_kwargs)
     test_dataset  = DatasetClass(data=test_data, **dataset_kwargs)
 
-
-    loader_args = dict(batch_size=batch_size, num_workers=1)
-
     # =========================================================
     # 5. COLLATE only for Sentence Transformers
     # =========================================================
     collate = custom_collate_fn if model_type == "sentenceTransformers" else None
 
-    train_loader = DataLoader(train_dataset, shuffle=True, collate_fn=collate, **loader_args)
-    val_loader   = DataLoader(val_dataset, shuffle=False, collate_fn=collate, **loader_args)
+    train_loader = DataLoader(train_dataset, shuffle=True, collate_fn=collate, batch_size=batch_size, num_workers=1)
+    val_loader   = DataLoader(val_dataset, shuffle=False, collate_fn=collate, batch_size=batch_size, num_workers=1)
     test_loader  = DataLoader(test_dataset, shuffle=False, num_workers=2, collate_fn=collate, batch_size=batch_size)
 
     return train_loader, val_loader, test_loader

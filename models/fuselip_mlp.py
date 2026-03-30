@@ -64,6 +64,9 @@ class FuseLIPMLPClassifier(nn.Module):
         elif self.mode == "text":
             features = text_embeds
         else:  # multimodal
+            # Handle None text_embeds for multimodal mode
+            if text_embeds is None:
+                raise ValueError("text_embeds cannot be None in multimodal mode")
             features = torch.cat([image_embeds, text_embeds], dim=-1)
 
         return self.mlp_head(features)

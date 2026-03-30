@@ -87,7 +87,15 @@ def evaluate_contrastive(
             elif isinstance(text_out, dict) and "pooler_output" in text_out:
                 text_features = text_out["pooler_output"]
             else:
-                text_features = text_out.last_hidden_state[:, 0, :]
+                # Safe access to last_hidden_state for dict-like outputs
+                if isinstance(text_out, dict):
+                    last_hidden = text_out.get("last_hidden_state")
+                    if last_hidden is not None:
+                        text_features = last_hidden[:, 0, :]
+                    else:
+                        raise ValueError("Cannot extract text features from model output")
+                else:
+                    text_features = text_out.last_hidden_state[:, 0, :]
         else:
             text_out = base_model(**text_inputs)
             # Handle different model output formats
@@ -98,8 +106,15 @@ def evaluate_contrastive(
             elif isinstance(text_out, dict) and "pooler_output" in text_out:
                 text_features = text_out["pooler_output"]
             else:
-                # Fallback to last_hidden_state[:, 0, :] (CLS token)
-                text_features = text_out.last_hidden_state[:, 0, :]
+                # Safe access to last_hidden_state for dict-like outputs
+                if isinstance(text_out, dict):
+                    last_hidden = text_out.get("last_hidden_state")
+                    if last_hidden is not None:
+                        text_features = last_hidden[:, 0, :]
+                    else:
+                        raise ValueError("Cannot extract text features from model output")
+                else:
+                    text_features = text_out.last_hidden_state[:, 0, :]
 
         # Ensure text_features is a tensor
         if not isinstance(text_features, torch.Tensor):
@@ -142,7 +157,15 @@ def evaluate_contrastive(
                 elif isinstance(img_out, dict) and "pooler_output" in img_out:
                     image_features = img_out["pooler_output"]
                 else:
-                    image_features = img_out.last_hidden_state[:, 0, :]
+                    # Safe access to last_hidden_state for dict-like outputs
+                    if isinstance(img_out, dict):
+                        last_hidden = img_out.get("last_hidden_state")
+                        if last_hidden is not None:
+                            image_features = last_hidden[:, 0, :]
+                        else:
+                            raise ValueError("Cannot extract image features from model output")
+                    else:
+                        image_features = img_out.last_hidden_state[:, 0, :]
             else:
                 img_out = base_model(**img_inputs)
                 # Handle different model output formats
@@ -153,8 +176,15 @@ def evaluate_contrastive(
                 elif isinstance(img_out, dict) and "pooler_output" in img_out:
                     image_features = img_out["pooler_output"]
                 else:
-                    # Fallback to last_hidden_state[:, 0, :] (CLS token)
-                    image_features = img_out.last_hidden_state[:, 0, :]
+                    # Safe access to last_hidden_state for dict-like outputs
+                    if isinstance(img_out, dict):
+                        last_hidden = img_out.get("last_hidden_state")
+                        if last_hidden is not None:
+                            image_features = last_hidden[:, 0, :]
+                        else:
+                            raise ValueError("Cannot extract image features from model output")
+                    else:
+                        image_features = img_out.last_hidden_state[:, 0, :]
 
             # Ensure image_features is a tensor
             if not isinstance(image_features, torch.Tensor):

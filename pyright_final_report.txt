@@ -1,0 +1,4 @@
+/Users/emersonherreratolentino/www/laboratorio/damageVLMs-experiment/models/pretrained.py
+  /Users/emersonherreratolentino/www/laboratorio/damageVLMs-experiment/models/pretrained.py:30:32 - error: Argumento de tipo "str" no puede ser asignado a parámetro "self" de tipo "MultilingualCLIP" en función "__call__"
+    "str" no se puede asignar a "MultilingualCLIP" (reportArgumentType)
+1 error, 0 warnings, 0 informations

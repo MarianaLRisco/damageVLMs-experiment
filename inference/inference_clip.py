@@ -39,7 +39,7 @@ class InferenceClip:
         text_emb = self.torchfunction(device)
         preds, probs, errors = [], [], []
 
-        for idx, row in tqdm(self.test_data.iterrows(), total=len(self.test_data)):
+        for _, row in tqdm(self.test_data.iterrows(), total=len(self.test_data)):
             img_path = row["image_path"]
             true_label = row["labels"]
 
@@ -57,7 +57,7 @@ class InferenceClip:
                     pred_idx = sim.argmax().item()
 
                 pred_label = self.labels[pred_idx]
-                pred_prob = sim[0, pred_idx].item()
+                pred_prob = sim[0][int(pred_idx)].item()
 
                 preds.append(pred_label)
                 probs.append(pred_prob)
@@ -106,7 +106,7 @@ class InferenceClip:
 
         with open(metrics_path, "w") as f:
             f.write("Classification Report:\n")
-            f.write(classification_report(true_labels, preds, target_names=self.labels))
+            f.write(str(classification_report(true_labels, preds, target_names=self.labels)))
             f.write("\n")
             f.write(f"Accuracy: {accuracy:.4f}\n")
             f.write(f"Precision: {precision:.4f}\n")

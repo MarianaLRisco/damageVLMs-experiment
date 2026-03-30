@@ -4,7 +4,7 @@ import torch.nn as nn
 import torch
 
 class SigLIPCrossentropy(nn.Module):
-    def __init__(self, model_name=str, dropout_prob=0.4, temperature=0.07):
+    def __init__(self, model_name: str = "google/siglip-base-patch16-224", dropout_prob: float = 0.4, temperature: float = 0.07):
         super().__init__()
         self.base_model = AutoModel.from_pretrained(model_name, low_cpu_mem_usage=True)
         self.dropout = nn.Dropout(p=dropout_prob)
@@ -55,7 +55,7 @@ class SigLIPCrossentropy(nn.Module):
             }
 
 class SigLIP2Crossentropy(nn.Module):
-    def __init__(self, model_name="google/siglip2-base-patch16-naflex", dropout_prob=0.4, temperature=0.07):
+    def __init__(self, model_name: str = "google/siglip2-base-patch16-naflex", dropout_prob: float = 0.4, temperature: float = 0.07):
         super().__init__()
         self.base_model = AutoModel.from_pretrained(model_name, low_cpu_mem_usage=True)
         self.dropout = nn.Dropout(p=dropout_prob)

@@ -1,0 +1,77 @@
+/Users/emersonherreratolentino/www/laboratorio/damageVLMs-experiment/data/loader.py
+  /Users/emersonherreratolentino/www/laboratorio/damageVLMs-experiment/data/loader.py:32:25 - error: No se puede tener acceso al atributo "reset_index" para la clase "list[Unknown]"
+    Atributo "reset_index" desconocido (reportAttributeAccessIssue)
+  /Users/emersonherreratolentino/www/laboratorio/damageVLMs-experiment/data/loader.py:33:21 - error: No se puede tener acceso al atributo "reset_index" para la clase "list[Unknown]"
+    Atributo "reset_index" desconocido (reportAttributeAccessIssue)
+/Users/emersonherreratolentino/www/laboratorio/damageVLMs-experiment/engine/trainers/mlp.py
+  /Users/emersonherreratolentino/www/laboratorio/damageVLMs-experiment/engine/trainers/mlp.py:113:95 - error: Argumento de tipo "Literal[0]" no puede ser asignado a parámetro "zero_division" de tipo "str" en función "precision_score"
+    "Literal[0]" no se puede asignar a "str" (reportArgumentType)
+  /Users/emersonherreratolentino/www/laboratorio/damageVLMs-experiment/engine/trainers/mlp.py:114:89 - error: Argumento de tipo "Literal[0]" no puede ser asignado a parámetro "zero_division" de tipo "str" en función "recall_score"
+    "Literal[0]" no se puede asignar a "str" (reportArgumentType)
+  /Users/emersonherreratolentino/www/laboratorio/damageVLMs-experiment/engine/trainers/mlp.py:115:81 - error: Argumento de tipo "Literal[0]" no puede ser asignado a parámetro "zero_division" de tipo "str" en función "f1_score"
+    "Literal[0]" no se puede asignar a "str" (reportArgumentType)
+  /Users/emersonherreratolentino/www/laboratorio/damageVLMs-experiment/engine/trainers/mlp.py:122:101 - error: Argumento de tipo "Literal[0]" no puede ser asignado a parámetro "zero_division" de tipo "str" en función "classification_report"
+    "Literal[0]" no se puede asignar a "str" (reportArgumentType)
+  /Users/emersonherreratolentino/www/laboratorio/damageVLMs-experiment/engine/trainers/mlp.py:133:21 - error: Argumento de tipo "dict[Unknown, Unknown] | str" no puede ser asignado a parámetro "s" de tipo "str" en función "write"
+    El tipo "dict[Unknown, Unknown] | str" no se puede asignar al tipo "str"
+      "dict[Unknown, Unknown]" no se puede asignar a "str" (reportArgumentType)
+  /Users/emersonherreratolentino/www/laboratorio/damageVLMs-experiment/engine/trainers/mlp.py:133:107 - error: Argumento de tipo "Literal[0]" no puede ser asignado a parámetro "zero_division" de tipo "str" en función "classification_report"
+    "Literal[0]" no se puede asignar a "str" (reportArgumentType)
+/Users/emersonherreratolentino/www/laboratorio/damageVLMs-experiment/evaluation/classifier.py
+  /Users/emersonherreratolentino/www/laboratorio/damageVLMs-experiment/evaluation/classifier.py:79:91 - error: Argumento de tipo "Literal[0]" no puede ser asignado a parámetro "zero_division" de tipo "str" en función "precision_score"
+    "Literal[0]" no se puede asignar a "str" (reportArgumentType)
+  /Users/emersonherreratolentino/www/laboratorio/damageVLMs-experiment/evaluation/classifier.py:80:85 - error: Argumento de tipo "Literal[0]" no puede ser asignado a parámetro "zero_division" de tipo "str" en función "recall_score"
+    "Literal[0]" no se puede asignar a "str" (reportArgumentType)
+  /Users/emersonherreratolentino/www/laboratorio/damageVLMs-experiment/evaluation/classifier.py:81:77 - error: Argumento de tipo "Literal[0]" no puede ser asignado a parámetro "zero_division" de tipo "str" en función "f1_score"
+    "Literal[0]" no se puede asignar a "str" (reportArgumentType)
+  /Users/emersonherreratolentino/www/laboratorio/damageVLMs-experiment/evaluation/classifier.py:87:93 - error: Argumento de tipo "Literal[0]" no puede ser asignado a parámetro "zero_division" de tipo "str" en función "classification_report"
+    "Literal[0]" no se puede asignar a "str" (reportArgumentType)
+/Users/emersonherreratolentino/www/laboratorio/damageVLMs-experiment/evaluation/contrastive.py
+  /Users/emersonherreratolentino/www/laboratorio/damageVLMs-experiment/evaluation/contrastive.py:90:42 - error: No se puede tener acceso al atributo "last_hidden_state" para la clase "dict[Unknown, Unknown]"
+    Atributo "last_hidden_state" desconocido (reportAttributeAccessIssue)
+  /Users/emersonherreratolentino/www/laboratorio/damageVLMs-experiment/evaluation/contrastive.py:102:42 - error: No se puede tener acceso al atributo "last_hidden_state" para la clase "dict[Unknown, Unknown]"
+    Atributo "last_hidden_state" desconocido (reportAttributeAccessIssue)
+  /Users/emersonherreratolentino/www/laboratorio/damageVLMs-experiment/evaluation/contrastive.py:145:46 - error: No se puede tener acceso al atributo "last_hidden_state" para la clase "dict[Unknown, Unknown]"
+    Atributo "last_hidden_state" desconocido (reportAttributeAccessIssue)
+  /Users/emersonherreratolentino/www/laboratorio/damageVLMs-experiment/evaluation/contrastive.py:157:46 - error: No se puede tener acceso al atributo "last_hidden_state" para la clase "dict[Unknown, Unknown]"
+    Atributo "last_hidden_state" desconocido (reportAttributeAccessIssue)
+  /Users/emersonherreratolentino/www/laboratorio/damageVLMs-experiment/evaluation/contrastive.py:171:91 - error: Argumento de tipo "Literal[0]" no puede ser asignado a parámetro "zero_division" de tipo "str" en función "precision_score"
+    "Literal[0]" no se puede asignar a "str" (reportArgumentType)
+  /Users/emersonherreratolentino/www/laboratorio/damageVLMs-experiment/evaluation/contrastive.py:172:85 - error: Argumento de tipo "Literal[0]" no puede ser asignado a parámetro "zero_division" de tipo "str" en función "recall_score"
+    "Literal[0]" no se puede asignar a "str" (reportArgumentType)
+  /Users/emersonherreratolentino/www/laboratorio/damageVLMs-experiment/evaluation/contrastive.py:173:77 - error: Argumento de tipo "Literal[0]" no puede ser asignado a parámetro "zero_division" de tipo "str" en función "f1_score"
+    "Literal[0]" no se puede asignar a "str" (reportArgumentType)
+  /Users/emersonherreratolentino/www/laboratorio/damageVLMs-experiment/evaluation/contrastive.py:179:93 - error: Argumento de tipo "Literal[0]" no puede ser asignado a parámetro "zero_division" de tipo "str" en función "classification_report"
+    "Literal[0]" no se puede asignar a "str" (reportArgumentType)
+/Users/emersonherreratolentino/www/laboratorio/damageVLMs-experiment/models/fuselip_mlp.py
+  /Users/emersonherreratolentino/www/laboratorio/damageVLMs-experiment/models/fuselip_mlp.py:67:24 - error: Ninguna sobrecarga para "cat" coincide con los argumentos proporcionados (reportCallIssue)
+  /Users/emersonherreratolentino/www/laboratorio/damageVLMs-experiment/models/fuselip_mlp.py:67:49 - error: Argumento de tipo "list[Unknown | None]" no puede ser asignado a parámetro "tensors" de tipo "tuple[Tensor, ...] | list[Tensor] | None" en función "cat"
+    El tipo "Unknown | None" no se puede asignar al tipo "Tensor"
+      "None" no se puede asignar a "Tensor" (reportArgumentType)
+/Users/emersonherreratolentino/www/laboratorio/damageVLMs-experiment/models/pretrained.py
+  /Users/emersonherreratolentino/www/laboratorio/damageVLMs-experiment/models/pretrained.py:7:8 - error: No se ha podido resolver la importación "clip". (reportMissingImports)
+  /Users/emersonherreratolentino/www/laboratorio/damageVLMs-experiment/models/pretrained.py:18:87 - error: Argumento de tipo "str" no puede ser asignado a parámetro "self" de tipo "MultilingualCLIP" en función "__call__"
+    "str" no se puede asignar a "MultilingualCLIP" (reportArgumentType)
+  /Users/emersonherreratolentino/www/laboratorio/damageVLMs-experiment/models/pretrained.py:47:14 - error: No se ha podido resolver la importación "fuse_clip.fuse_clip_utils". (reportMissingImports)
+/Users/emersonherreratolentino/www/laboratorio/damageVLMs-experiment/models/siglip_crossentropy.py
+  /Users/emersonherreratolentino/www/laboratorio/damageVLMs-experiment/models/siglip_crossentropy.py:9:53 - error: Argumento de tipo "type[str]" no puede ser asignado a parámetro "pretrained_model_name_or_path" de tipo "str | PathLike[str]" en función "from_pretrained"
+    El tipo "type[str]" no se puede asignar al tipo "str | PathLike[str]"
+      El tipo "type[str]" no se puede asignar al tipo "str"
+      "__fspath__" no está presente. (reportArgumentType)
+/Users/emersonherreratolentino/www/laboratorio/damageVLMs-experiment/models/siglip_twostage.py
+  /Users/emersonherreratolentino/www/laboratorio/damageVLMs-experiment/models/siglip_twostage.py:38:20 - error: El objeto de tipo "None" no se puede suscribir (reportOptionalSubscript)
+  /Users/emersonherreratolentino/www/laboratorio/damageVLMs-experiment/models/siglip_twostage.py:56:72 - error: La expresión de tipo "None" no se puede asignar al parámetro de tipo "dict[Unknown, Unknown]"
+    "None" no se puede asignar a "dict[Unknown, Unknown]" (reportArgumentType)
+  /Users/emersonherreratolentino/www/laboratorio/damageVLMs-experiment/models/siglip_twostage.py:67:26 - error: No se puede llamar al objeto de tipo "None" (reportOptionalCall)
+  /Users/emersonherreratolentino/www/laboratorio/damageVLMs-experiment/models/siglip_twostage.py:90:59 - error: El objeto de tipo "Tensor" no es invocable
+    Atributo "__call__" desconocido (reportCallIssue)
+  /Users/emersonherreratolentino/www/laboratorio/damageVLMs-experiment/models/siglip_twostage.py:111:20 - error: El objeto de tipo "None" no se puede suscribir (reportOptionalSubscript)
+  /Users/emersonherreratolentino/www/laboratorio/damageVLMs-experiment/models/siglip_twostage.py:140:72 - error: La expresión de tipo "None" no se puede asignar al parámetro de tipo "dict[Unknown, Unknown]"
+    "None" no se puede asignar a "dict[Unknown, Unknown]" (reportArgumentType)
+  /Users/emersonherreratolentino/www/laboratorio/damageVLMs-experiment/models/siglip_twostage.py:151:26 - error: No se puede llamar al objeto de tipo "None" (reportOptionalCall)
+  /Users/emersonherreratolentino/www/laboratorio/damageVLMs-experiment/models/siglip_twostage.py:180:59 - error: El objeto de tipo "Tensor" no es invocable
+    Atributo "__call__" desconocido (reportCallIssue)
+/Users/emersonherreratolentino/www/laboratorio/damageVLMs-experiment/pipelines/contrastive.py
+  /Users/emersonherreratolentino/www/laboratorio/damageVLMs-experiment/pipelines/contrastive.py:74:74 - error: Argumento de tipo "str" no puede ser asignado a parámetro "model_type" de tipo "type[str]" en función "save"
+    El tipo "str" no se puede asignar al tipo "type[str]" (reportArgumentType)
+35 errors, 0 warnings, 0 informations

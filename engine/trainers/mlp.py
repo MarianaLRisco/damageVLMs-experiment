@@ -130,7 +130,8 @@ class TrainerMLP:
             f.write(f"Precision: {precision:.4f}\n")
             f.write(f"Recall:    {recall:.4f}\n")
             f.write(f"F1:        {f1:.4f}\n\n")
-            f.write(classification_report(all_targets, all_preds, target_names=label_names, zero_division=0))
+            report = classification_report(all_targets, all_preds, target_names=label_names, zero_division=0)
+            f.write(str(report))
 
         # Save confusion matrix
         cm = confusion_matrix(all_targets, all_preds)

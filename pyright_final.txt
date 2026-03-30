@@ -1,0 +1,11 @@
+/Users/emersonherreratolentino/www/laboratorio/damageVLMs-experiment/models/pretrained.py
+  /Users/emersonherreratolentino/www/laboratorio/damageVLMs-experiment/models/pretrained.py:24:32 - error: Argumento de tipo "str" no puede ser asignado a parámetro "self" de tipo "MultilingualCLIP" en función "__call__"
+    "str" no se puede asignar a "MultilingualCLIP" (reportArgumentType)
+/Users/emersonherreratolentino/www/laboratorio/damageVLMs-experiment/models/siglip_twostage.py
+  /Users/emersonherreratolentino/www/laboratorio/damageVLMs-experiment/models/siglip_twostage.py:61:26 - error: El tipo "Tensor | Module" no se puede asignar al tipo declarado "Tensor"
+    El tipo "Tensor | Module" no se puede asignar al tipo "Tensor"
+      "Module" no se puede asignar a "Tensor" (reportAssignmentType)
+  /Users/emersonherreratolentino/www/laboratorio/damageVLMs-experiment/models/siglip_twostage.py:152:26 - error: El tipo "Tensor | Module" no se puede asignar al tipo declarado "Tensor"
+    El tipo "Tensor | Module" no se puede asignar al tipo "Tensor"
+      "Module" no se puede asignar a "Tensor" (reportAssignmentType)
+3 errors, 0 warnings, 0 informations
