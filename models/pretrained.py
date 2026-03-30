@@ -58,11 +58,15 @@ def sentence_transformer_model_loader(device: str = 'cpu'):
 
 
 def fuselip_model_loader(device: str = 'cpu'):
+    """
+    Carga modelo FuseLIP usando el wrapper simplificado.
+    El wrapper configura PYTHONPATH y carga desde HuggingFace.
+    """
     try:
-        from fuse_clip.fuse_clip_utils import load_model  # type: ignore
+        from fuselip_wrapper import load_model  # type: ignore
     except ImportError:
         raise ImportError(
-            "fuse_clip is not installed. Install it before running fuselip_mlp experiments."
+            "fuselip_wrapper no encontrado. Asegúrate de que fuselip_repo/ existe en el proyecto."
         )
     model, image_processor, text_tokenizer = load_model(
         "chs20/FuseLIP-S-CC3M-MM",

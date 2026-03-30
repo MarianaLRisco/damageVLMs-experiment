@@ -9,8 +9,13 @@ einops
 # Embeddings y CLIP
 sentence-transformers
 multilingual-clip
-open_clip_torch
+# open_clip viene incluido en fuselip_repo/src/open_clip/
+# NO instalar open_clip_torch porque está en conflicto con la versión que necesita FuseLIP
 ftfy
+
+# NOTA: FuseLIP está incluido en fuselip_repo/
+# Repo: https://github.com/chs20/fuselip
+# El wrapper (fuselip_wrapper.py) configura PYTHONPATH automáticamente
 
 # Datos y métricas
 scikit-learn

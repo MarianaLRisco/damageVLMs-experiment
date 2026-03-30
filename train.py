@@ -2,6 +2,12 @@ import argparse
 import os
 import sys
 
+# CRÍTICO: Configurar PYTHONPATH para FuseLIP ANTES de cualquier import
+# Esto asegura que se use la versión correcta de open_clip compatible con FuseLIP
+fuselip_src = os.path.join(os.path.dirname(__file__), 'fuselip_repo', 'src')
+if fuselip_src not in sys.path:
+    sys.path.insert(0, fuselip_src)
+
 # Enable MPS fallback for unsupported ops (Apple Silicon GPU)
 # This fixes: NotImplementedError for aten::_upsample_bilinear2d_aa_backward.grad_input
 os.environ["PYTORCH_ENABLE_MPS_FALLBACK"] = "1"
@@ -15,7 +21,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), "engine"))
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "models"))
 
 # Config
-from config.loader import load_config
+from config_loaders.loader import load_config
 
 # Data
 from data.loader import load_damage_dataset, load_crisisMMD

@@ -2,7 +2,7 @@
 
 from torch.utils.data import DataLoader
 from pipelines.base import BasePipeline, PipelineConfig
-from data.utils import get_batch_size, get_num_workers
+from data.utils import get_batch_size, get_num_workers_fuselip
 from engine.dataloaders.fuselip import ImageTextFuseLIP
 from engine.trainers.mlp import TrainerMLP
 from models.pretrained import fuselip_model_loader
@@ -21,7 +21,7 @@ class FuseLIPMLPPipeline(BasePipeline):
         mode = hp["mode"]
         embed_dim = hp.get("embed_dim", 512)
         batch_size = get_batch_size(hp.get("batch_size", 64), device)
-        nw = get_num_workers(device)
+        nw = get_num_workers_fuselip(device)  # Use FuseLIP-specific worker count
         classes = self.cfg.dataset_cfg["classes"]
         output_dir = self.output_dir
 
