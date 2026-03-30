@@ -1,4 +1,3 @@
-data/
 .env
 wandb/
 __pycache__/
