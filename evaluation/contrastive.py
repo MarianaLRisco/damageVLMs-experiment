@@ -75,14 +75,36 @@ def evaluate_contrastive(
 
     with torch.no_grad():
         if hasattr(base_model, "get_text_features"):
-            text_features = base_model.get_text_features(
+            text_out = base_model.get_text_features(
                 input_ids=text_inputs["input_ids"],
                 attention_mask=text_inputs.get("attention_mask", None),
             )
+            # Extract tensor from BaseModelOutputWithPooling
+            if hasattr(text_out, "text_embeds"):
+                text_features = text_out.text_embeds
+            elif hasattr(text_out, "pooler_output"):
+                text_features = text_out.pooler_output
+            elif isinstance(text_out, dict) and "pooler_output" in text_out:
+                text_features = text_out["pooler_output"]
+            else:
+                text_features = text_out.last_hidden_state[:, 0, :]
         else:
             text_out = base_model(**text_inputs)
-            # Use pooler_output for text embeddings (aggregated representation)
-            text_features = text_out.pooler_output
+            # Handle different model output formats
+            if hasattr(text_out, "text_embeds"):
+                text_features = text_out.text_embeds
+            elif hasattr(text_out, "pooler_output"):
+                text_features = text_out.pooler_output
+            elif isinstance(text_out, dict) and "pooler_output" in text_out:
+                text_features = text_out["pooler_output"]
+            else:
+                # Fallback to last_hidden_state[:, 0, :] (CLS token)
+                text_features = text_out.last_hidden_state[:, 0, :]
+
+        # Ensure text_features is a tensor
+        if not isinstance(text_features, torch.Tensor):
+            raise TypeError(f"Expected torch.Tensor, got {type(text_features)}")
+
         text_embeds = F.normalize(text_features, dim=-1)  # (num_classes, D)
 
     all_preds, all_targets = [], []
@@ -111,11 +133,33 @@ def evaluate_contrastive(
                     ]
                 if "spatial_shapes" in img_inputs:
                     image_feature_kwargs["spatial_shapes"] = img_inputs["spatial_shapes"]
-                image_features = base_model.get_image_features(**image_feature_kwargs)
+                img_out = base_model.get_image_features(**image_feature_kwargs)
+                # Extract tensor from BaseModelOutputWithPooling
+                if hasattr(img_out, "image_embeds"):
+                    image_features = img_out.image_embeds
+                elif hasattr(img_out, "pooler_output"):
+                    image_features = img_out.pooler_output
+                elif isinstance(img_out, dict) and "pooler_output" in img_out:
+                    image_features = img_out["pooler_output"]
+                else:
+                    image_features = img_out.last_hidden_state[:, 0, :]
             else:
                 img_out = base_model(**img_inputs)
-                # Use pooler_output for image embeddings (aggregated representation)
-                image_features = img_out.pooler_output
+                # Handle different model output formats
+                if hasattr(img_out, "image_embeds"):
+                    image_features = img_out.image_embeds
+                elif hasattr(img_out, "pooler_output"):
+                    image_features = img_out.pooler_output
+                elif isinstance(img_out, dict) and "pooler_output" in img_out:
+                    image_features = img_out["pooler_output"]
+                else:
+                    # Fallback to last_hidden_state[:, 0, :] (CLS token)
+                    image_features = img_out.last_hidden_state[:, 0, :]
+
+            # Ensure image_features is a tensor
+            if not isinstance(image_features, torch.Tensor):
+                raise TypeError(f"Expected torch.Tensor, got {type(image_features)}")
+
             img_embed = F.normalize(image_features, dim=-1)  # (1, D)
 
         sims = (img_embed @ text_embeds.t()).squeeze(0)
