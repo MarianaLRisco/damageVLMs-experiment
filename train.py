@@ -22,6 +22,7 @@ from data.loader import load_damage_dataset, load_crisisMMD
 
 # Utils
 from utils.device import get_device
+from utils.logging import setup_logging, get_logger
 
 # Pipelines
 from pipelines.registry import get_pipeline
@@ -40,32 +41,42 @@ def main():
     parser.add_argument("--eval-only", action="store_true", help="Skip training, run zero-shot evaluation only")
     args = parser.parse_args()
 
+    # Load config
     config = load_config(args.config)
     config["device"] = get_device(config.get("device", "cuda"))
     config["eval_only"] = args.eval_only
-    print(f"[INFO] Using device: {config['device']}")
-    if config["eval_only"]:
-        print("[INFO] eval-only mode: skipping training, running zero-shot evaluation")
+
+    # Setup logging (use first model/dataset combo for log directory)
+    log_output_dir = config["output"]["dir"]
+    log_experiment_name = f"run_{args.config.replace('/', '_').replace('.yaml', '')}"
+
+    logger = setup_logging(log_output_dir, log_experiment_name)
+    logger.info(f"Config loaded from: {args.config}")
+    logger.info(f"Device: {config['device']}")
+    logger.info(f"Eval-only mode: {config['eval_only']}")
+
+    # Get logger for this module
+    logger = get_logger(__name__)
 
     for dataset_cfg in config["datasets"]:
         if args.datasets and dataset_cfg["name"] not in args.datasets:
             continue
 
-        name = dataset_cfg["name"]
+        dataset_name = dataset_cfg["name"]
         root = dataset_cfg["root"]
 
-        print(f"\n{'#'*60}")
-        print(f"Loading dataset: {name} from {root}")
-        print(f"{'#'*60}")
+        logger.info("=" * 60)
+        logger.info(f"Loading dataset: {dataset_name} from {root}")
+        logger.info("=" * 60)
 
-        if name == "damage_dataset":
+        if dataset_name == "damage_dataset":
             train_df, val_df, test_df = load_damage_dataset(root)
-        elif name == "crisisMMD":
+        elif dataset_name == "crisisMMD":
             train_df, val_df, test_df = load_crisisMMD(root)
         else:
-            raise ValueError(f"Unknown dataset: {name}")
+            raise ValueError(f"Unknown dataset: {dataset_name}")
 
-        print(f"Train: {len(train_df)} | Val: {len(val_df)} | Test: {len(test_df)}")
+        logger.info(f"Train: {len(train_df)} | Val: {len(val_df)} | Test: {len(test_df)}")
 
         for model_cfg in config["models"]:
             model_name = model_cfg["name"]
@@ -87,11 +98,18 @@ def main():
 
                 # Get and run pipeline
                 pipeline = get_pipeline(model_name, pipeline_config)
+                logger.info("=" * 60)
+                mode = "eval-only" if config.get("eval_only", False) else "training"
+                logger.info(f"[{mode}] {model_name} | Dataset: {dataset_name}")
+                logger.info("=" * 60)
+
                 pipeline.run()
+
+                logger.info(f"✅ Completed: {model_name} on {dataset_name}")
             except Exception as e:
-                print(f"[ERROR] {model_name} on {name}: {e}")
+                logger.error(f"❌ Error running {model_name} on {dataset_name}: {e}")
                 import traceback
-                traceback.print_exc()
+                logger.error(traceback.format_exc())
 
 
 if __name__ == "__main__":
