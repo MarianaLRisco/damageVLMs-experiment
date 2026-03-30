@@ -25,3 +25,5 @@ dataset/
 dataset
 venv/
 outputs/
+# FuseLIP repo clonado (no subir al git)
+fuselip_repo/
