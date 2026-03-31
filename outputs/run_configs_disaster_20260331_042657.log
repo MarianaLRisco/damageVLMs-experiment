@@ -1,0 +1,37 @@
+2026-03-31 04:26:57 | INFO | utils.logging | Logging initialized. Log file: outputs/run_configs_disaster_20260331_042657.log
+2026-03-31 04:26:57 | INFO | utils.logging | Config loaded from: configs/disaster.yaml
+2026-03-31 04:26:57 | INFO | utils.logging | Device: cuda
+2026-03-31 04:26:57 | INFO | utils.logging | Eval-only mode: False
+2026-03-31 04:26:57 | INFO | __main__ | ============================================================
+2026-03-31 04:26:57 | INFO | __main__ | Loading dataset: damage_dataset from dataset/damage_dataset
+2026-03-31 04:26:57 | INFO | __main__ | ============================================================
+2026-03-31 04:26:58 | INFO | __main__ | Train: 4761 | Val: 530 | Test: 588
+2026-03-31 04:26:58 | INFO | __main__ | ============================================================
+2026-03-31 04:26:58 | INFO | __main__ | [training] siglip_twoStage | Dataset: damage_dataset
+2026-03-31 04:26:58 | INFO | __main__ | ============================================================
+2026-03-31 04:26:58 | INFO | httpx | HTTP Request: HEAD https://huggingface.co/google/siglip-base-patch16-256-multilingual/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-03-31 04:26:58 | INFO | httpx | HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/google/siglip-base-patch16-256-multilingual/8952a4eafcde3cb7ab46b1dd629b33f8784ca9c6/config.json "HTTP/1.1 200 OK"
+2026-03-31 04:26:58 | INFO | httpx | HTTP Request: HEAD https://huggingface.co/google/siglip-base-patch16-256-multilingual/resolve/main/processor_config.json "HTTP/1.1 404 Not Found"
+2026-03-31 04:26:59 | INFO | httpx | HTTP Request: HEAD https://huggingface.co/google/siglip-base-patch16-256-multilingual/resolve/main/preprocessor_config.json "HTTP/1.1 307 Temporary Redirect"
+2026-03-31 04:26:59 | INFO | httpx | HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/google/siglip-base-patch16-256-multilingual/8952a4eafcde3cb7ab46b1dd629b33f8784ca9c6/preprocessor_config.json "HTTP/1.1 200 OK"
+2026-03-31 04:26:59 | INFO | httpx | HTTP Request: HEAD https://huggingface.co/google/siglip-base-patch16-256-multilingual/resolve/main/processor_config.json "HTTP/1.1 404 Not Found"
+2026-03-31 04:26:59 | INFO | httpx | HTTP Request: HEAD https://huggingface.co/google/siglip-base-patch16-256-multilingual/resolve/main/preprocessor_config.json "HTTP/1.1 307 Temporary Redirect"
+2026-03-31 04:26:59 | WARNING | huggingface_hub.utils._http | Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-03-31 04:26:59 | INFO | httpx | HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/google/siglip-base-patch16-256-multilingual/8952a4eafcde3cb7ab46b1dd629b33f8784ca9c6/preprocessor_config.json "HTTP/1.1 200 OK"
+2026-03-31 04:26:59 | INFO | httpx | HTTP Request: GET https://huggingface.co/api/models/google/siglip-base-patch16-256-multilingual/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-03-31 04:26:59 | INFO | httpx | HTTP Request: HEAD https://huggingface.co/google/siglip-base-patch16-256-multilingual/resolve/main/processor_config.json "HTTP/1.1 404 Not Found"
+2026-03-31 04:26:59 | INFO | httpx | HTTP Request: HEAD https://huggingface.co/google/siglip-base-patch16-256-multilingual/resolve/main/chat_template.json "HTTP/1.1 404 Not Found"
+2026-03-31 04:27:00 | INFO | httpx | HTTP Request: HEAD https://huggingface.co/google/siglip-base-patch16-256-multilingual/resolve/main/chat_template.jinja "HTTP/1.1 404 Not Found"
+2026-03-31 04:27:00 | INFO | httpx | HTTP Request: HEAD https://huggingface.co/google/siglip-base-patch16-256-multilingual/resolve/main/audio_tokenizer_config.json "HTTP/1.1 404 Not Found"
+2026-03-31 04:27:00 | INFO | httpx | HTTP Request: HEAD https://huggingface.co/google/siglip-base-patch16-256-multilingual/resolve/main/processor_config.json "HTTP/1.1 404 Not Found"
+2026-03-31 04:27:00 | INFO | httpx | HTTP Request: HEAD https://huggingface.co/google/siglip-base-patch16-256-multilingual/resolve/main/preprocessor_config.json "HTTP/1.1 307 Temporary Redirect"
+2026-03-31 04:27:00 | INFO | httpx | HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/google/siglip-base-patch16-256-multilingual/8952a4eafcde3cb7ab46b1dd629b33f8784ca9c6/preprocessor_config.json "HTTP/1.1 200 OK"
+2026-03-31 04:27:00 | INFO | httpx | HTTP Request: HEAD https://huggingface.co/google/siglip-base-patch16-256-multilingual/resolve/main/processor_config.json "HTTP/1.1 404 Not Found"
+2026-03-31 04:27:00 | INFO | httpx | HTTP Request: HEAD https://huggingface.co/google/siglip-base-patch16-256-multilingual/resolve/main/preprocessor_config.json "HTTP/1.1 307 Temporary Redirect"
+2026-03-31 04:27:00 | INFO | httpx | HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/google/siglip-base-patch16-256-multilingual/8952a4eafcde3cb7ab46b1dd629b33f8784ca9c6/preprocessor_config.json "HTTP/1.1 200 OK"
+2026-03-31 04:27:01 | INFO | httpx | HTTP Request: HEAD https://huggingface.co/google/siglip-base-patch16-256-multilingual/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-03-31 04:27:01 | INFO | httpx | HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/google/siglip-base-patch16-256-multilingual/8952a4eafcde3cb7ab46b1dd629b33f8784ca9c6/config.json "HTTP/1.1 200 OK"
+2026-03-31 04:27:01 | INFO | httpx | HTTP Request: HEAD https://huggingface.co/google/siglip-base-patch16-256-multilingual/resolve/main/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+2026-03-31 04:27:01 | INFO | httpx | HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/google/siglip-base-patch16-256-multilingual/8952a4eafcde3cb7ab46b1dd629b33f8784ca9c6/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-03-31 04:27:01 | INFO | httpx | HTTP Request: GET https://huggingface.co/api/models/google/siglip-base-patch16-256-multilingual/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-03-31 04:27:01 | INFO | httpx | HTTP Request: GET https://huggingface.co/api/models/google/siglip-base-patch16-256-multilingual/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"

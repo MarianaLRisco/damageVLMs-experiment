@@ -1,6 +1,20 @@
 sentencepiece
 protobuf
+<<<<<<< Updated upstream
 transformers 
+=======
+huggingface-hub
+accelerate
+einops
+
+# Embeddings y CLIP
+sentence-transformers
+multilingual-clip
+
+ftfy
+
+# Datos y métricas
+>>>>>>> Stashed changes
 scikit-learn
 pillow
 pandas
@@ -18,3 +32,8 @@ open_clip_torch
 ftfy
 argparse
 PyYAML
+<<<<<<< Updated upstream
+=======
+
+
+>>>>>>> Stashed changes

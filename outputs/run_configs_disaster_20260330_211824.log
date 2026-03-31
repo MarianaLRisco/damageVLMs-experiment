@@ -1,0 +1,24 @@
+2026-03-30 21:18:24 | INFO | utils.logging | Logging initialized. Log file: outputs/run_configs_disaster_20260330_211824.log
+2026-03-30 21:18:24 | INFO | utils.logging | Config loaded from: configs/disaster.yaml
+2026-03-30 21:18:24 | INFO | utils.logging | Device: cuda
+2026-03-30 21:18:24 | INFO | utils.logging | Eval-only mode: False
+2026-03-30 21:18:24 | INFO | __main__ | ============================================================
+2026-03-30 21:18:24 | INFO | __main__ | Loading dataset: crisisMMD from dataset/CrisisMMD_v2.0
+2026-03-30 21:18:24 | INFO | __main__ | ============================================================
+2026-03-30 21:18:25 | INFO | __main__ | Train: 13608 | Val: 2237 | Test: 2237
+2026-03-30 21:18:25 | INFO | __main__ | ============================================================
+2026-03-30 21:18:25 | INFO | __main__ | [training] fuselip_mlp_text | Dataset: crisisMMD
+2026-03-30 21:18:25 | INFO | __main__ | ============================================================
+2026-03-30 21:18:25 | INFO | root | Cargando FuseLIP desde Hugging Face Hub: chs20/FuseLIP-S-CC3M-MM
+2026-03-30 21:18:25 | INFO | httpx | HTTP Request: HEAD https://huggingface.co/chs20/FuseLIP-S-CC3M-MM/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-03-30 21:18:25 | INFO | httpx | HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/chs20/FuseLIP-S-CC3M-MM/96d0836d160dea33f2272d162f886c6b82ad1c25/config.json "HTTP/1.1 200 OK"
+2026-03-30 21:18:25 | INFO | httpx | HTTP Request: HEAD https://huggingface.co/chs20/FuseLIP-S-CC3M-MM/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-03-30 21:18:25 | INFO | httpx | HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/chs20/FuseLIP-S-CC3M-MM/96d0836d160dea33f2272d162f886c6b82ad1c25/config.json "HTTP/1.1 200 OK"
+2026-03-30 21:18:25 | INFO | httpx | HTTP Request: HEAD https://huggingface.co/yucornetto/tokenizer_titok_s128_imagenet/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-03-30 21:18:25 | WARNING | huggingface_hub.utils._http | Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-03-30 21:18:25 | INFO | httpx | HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/yucornetto/tokenizer_titok_s128_imagenet/aa8740991cc9e5965e6dea04caad8905193fc24b/config.json "HTTP/1.1 200 OK"
+2026-03-30 21:18:26 | INFO | httpx | HTTP Request: HEAD https://huggingface.co/yucornetto/tokenizer_titok_s128_imagenet/resolve/main/model.safetensors "HTTP/1.1 302 Found"
+2026-03-30 21:18:26 | INFO | root | text config: {'context_length': 180, 'vocab_size': 53505, 'width': 384, 'heads': 6, 'layers': 12, 'mlp_ratio': 4.0, 'ls_init_value': None, 'no_causal_mask': True, 'pad_id': 0, 'proj_bias': False, 'output_tokens': False, 'pool_type': 'eot'}
+2026-03-30 21:18:28 | INFO | httpx | HTTP Request: HEAD https://huggingface.co/chs20/FuseLIP-S-CC3M-MM/resolve/main/pytorch_model.bin "HTTP/1.1 302 Found"
+2026-03-30 21:18:29 | INFO | root | ✅ FuseLIP cargado exitosamente en cuda
+2026-03-30 22:07:10 | INFO | __main__ | Completed: fuselip_mlp_text on crisisMMD

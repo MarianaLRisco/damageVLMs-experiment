@@ -1,0 +1,20 @@
+2026-03-30 20:14:35 | INFO | utils.logging | Logging initialized. Log file: outputs/run_configs_disaster_20260330_201435.log
+2026-03-30 20:14:35 | INFO | utils.logging | Config loaded from: configs/disaster.yaml
+2026-03-30 20:14:35 | INFO | utils.logging | Device: cuda
+2026-03-30 20:14:35 | INFO | utils.logging | Eval-only mode: False
+2026-03-30 20:14:35 | INFO | __main__ | ============================================================
+2026-03-30 20:14:35 | INFO | __main__ | Loading dataset: crisisMMD from dataset/CrisisMMD_v2.0
+2026-03-30 20:14:35 | INFO | __main__ | ============================================================
+2026-03-30 20:14:35 | INFO | __main__ | Train: 13608 | Val: 2237 | Test: 2237
+2026-03-30 20:14:35 | INFO | __main__ | ============================================================
+2026-03-30 20:14:35 | INFO | __main__ | [training] fuselip_mlp_image | Dataset: crisisMMD
+2026-03-30 20:14:35 | INFO | __main__ | ============================================================
+2026-03-30 20:14:35 | ERROR | __main__ | Error running fuselip_mlp_image on crisisMMD: name 'dataset' is not defined
+2026-03-30 20:14:35 | ERROR | __main__ | Traceback (most recent call last):
+  File "/workspaces/damageVLMs-experiment/train.py", line 112, in main
+    pipeline.run()
+  File "/workspaces/damageVLMs-experiment/pipelines/fuselip_mlp.py", line 18, in run
+    dataset_name = dataset["name"]
+                   ^^^^^^^
+NameError: name 'dataset' is not defined
+

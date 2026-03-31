@@ -44,6 +44,19 @@ def sentence_transformer_model_loader(device: str = 'cuda'):
 
 
 def fuselip_model_loader(device: str = 'cuda'):
+<<<<<<< Updated upstream
+=======
+    """
+    Carga modelo FuseLIP usando el wrapper simplificado.
+    El wrapper configura PYTHONPATH y carga desde HuggingFace.
+    """
+    try:
+        from fuselip_wrapper import load_model  # type: ignore
+    except ImportError:
+        raise ImportError(
+            "fuselip_wrapper no encontrado. Asegúrate de que fuselip_repo/ existe en el proyecto."
+        )
+>>>>>>> Stashed changes
     model, image_processor, text_tokenizer = load_model(
         "chs20/FuseLIP-S-CC3M-MM",
         device=device

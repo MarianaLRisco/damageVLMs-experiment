@@ -1,4 +1,9 @@
 from PIL import Image, ImageFile
+<<<<<<< Updated upstream
+=======
+ImageFile.LOAD_TRUNCATED_IMAGES = True
+from torch.utils.data import Dataset
+>>>>>>> Stashed changes
 import os
 
 class ImageTextClip(Dataset):

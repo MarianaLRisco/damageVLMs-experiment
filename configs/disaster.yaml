@@ -1,0 +1,113 @@
+datasets:
+  - name: "damage_dataset"
+    root: "dataset/damage_dataset"
+    classes:
+      - non_damage
+      - fires
+      - flood
+      - damaged_infrastructure
+      - damaged_nature
+      - human_damage
+    prompts:
+      english:
+        - "A photo of no damage, normal scene."
+        - "A photo of a fire."
+        - "A photo of a flood, water."
+        - "A photo of damaged infrastructure."
+        - "A photo of damaged nature."
+        - "A photo of human damage."
+
+  - name: "crisisMMD"
+    root: "dataset/crisisMMD"
+    classes:
+      - informative
+      - not_informative
+    prompts:
+      english:
+        - "A photo of informative image showing disaster."
+        - "A photo of non-informative image with no disaster."
+
+models:
+ 
+  - name: "siglip_twoStage"
+    checkpoint: "checkpoints/siglip_twoStage"
+    pretrained: "google/siglip-base-patch16-256-multilingual"
+    hyperparams:
+      stage1_lr: 1.0e-4
+      stage1_epochs: 10
+      stage1_weight_decay: 1.0e-3
+      stage2_lr: 1.0e-4
+      stage2_epochs: 20
+      stage2_weight_decay: 1.0e-3
+      stage2_T_max: 70
+      batch_size: 32
+      loss_key: "attr"
+
+  
+  - name: "siglip2_twoStage"
+    checkpoint: "checkpoints/siglip2_twoStage"
+    pretrained: "google/siglip2-base-patch16-naflex"
+    hyperparams:
+      stage1_lr: 1.0e-4
+      stage1_epochs: 10
+      stage1_weight_decay: 1.0e-3
+      stage2_lr: 1.0e-4
+      stage2_epochs: 20
+      stage2_weight_decay: 1.0e-3
+      stage2_T_max: 70
+      batch_size: 32
+      loss_key: "dict"
+
+  
+  - name: "fuselip_mlp_image"
+    checkpoint: "checkpoints/fuselip_mlp_image"
+    hyperparams:
+      damage_dataset: 
+        mode: "image"
+        embed_dim: 384
+        lr: 1.0e-4
+        epochs: 30
+        weight_decay: 1.0e-4
+        batch_size: 64
+      crisisMMD:
+        mode: "image"
+        embed_dim: 384
+        lr: 1.0e-3
+        epochs: 30
+        weight_decay: 1.0e-4
+        batch_size: 64
+
+  - name: "fuselip_mlp_text"
+    checkpoint: "checkpoints/fuselip_mlp_text"
+    hyperparams:
+      damage_dataset: 
+        mode: "text"
+        embed_dim: 384
+        lr: 1.0e-4
+        epochs: 30
+        weight_decay: 1.0e-4
+        batch_size: 64
+      crisisMMD:
+        mode: "text"
+        embed_dim: 384
+        lr: 1.0e-4
+        epochs: 30
+        weight_decay: 1.0e-4
+        batch_size: 64
+
+  - name: "fuselip_mlp_multimodal"
+    checkpoint: "checkpoints/fuselip_mlp_multimodal"
+    hyperparams:
+      mode: "multimodal"
+      embed_dim: 384
+      lr: 1.0e-3
+      epochs: 30
+      weight_decay: 1.0e-4
+      batch_size: 64
+
+output:
+  dir: "outputs/"
+  confusion_matrix_filename: "confusion_matrix.png"
+  metrics_log_filename: "metrics.txt"
+
+device: "cuda"

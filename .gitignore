@@ -4,9 +4,9 @@ wandb/
 __pycache__/
 *.pyc
 .fuselip/
-results/checkpoints/
+checkpoints/
 .venv/
-results/models/
+dataset/
 *.pkl
 *.pkl
 *.csv
@@ -19,3 +19,4 @@ results/models/
 *.pt
 *.ckpt
 !results/logs/**/*.png
+!outputs/**/*.jpg

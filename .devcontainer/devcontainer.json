@@ -8,7 +8,11 @@
     "--shm-size=10g"
   ],
   "remoteUser": "root",
+<<<<<<< Updated upstream
   "mounts": ["source=${localWorkspaceFolder}/dataset,target=${containerWorkspaceFolder}/dataset,type=bind,consistency=cached"],
+=======
+  "mounts": ["source=/home/mariana/Datasets,target=${containerWorkspaceFolder}/dataset,type=bind,consistency=cached"],
+>>>>>>> Stashed changes
   "customizations": {
       "vscode": {
         "extensions": [

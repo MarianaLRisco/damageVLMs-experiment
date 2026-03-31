@@ -1,0 +1,112 @@
+2026-03-31 04:22:54 | INFO | utils.logging | Logging initialized. Log file: outputs/run_configs_disaster_20260331_042254.log
+2026-03-31 04:22:54 | INFO | utils.logging | Config loaded from: configs/disaster.yaml
+2026-03-31 04:22:54 | INFO | utils.logging | Device: cuda
+2026-03-31 04:22:54 | INFO | utils.logging | Eval-only mode: False
+2026-03-31 04:22:54 | INFO | __main__ | ============================================================
+2026-03-31 04:22:54 | INFO | __main__ | Loading dataset: damage_dataset from dataset/damage_dataset
+2026-03-31 04:22:54 | INFO | __main__ | ============================================================
+2026-03-31 04:22:54 | INFO | __main__ | Train: 4761 | Val: 530 | Test: 588
+2026-03-31 04:22:54 | INFO | __main__ | ============================================================
+2026-03-31 04:22:54 | INFO | __main__ | [training] siglip_twoStage | Dataset: damage_dataset
+2026-03-31 04:22:54 | INFO | __main__ | ============================================================
+2026-03-31 04:22:54 | INFO | httpx | HTTP Request: HEAD https://huggingface.co/google/siglip-base-patch16-256-multilingual/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-03-31 04:22:54 | WARNING | huggingface_hub.utils._http | Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-03-31 04:22:54 | INFO | httpx | HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/google/siglip-base-patch16-256-multilingual/8952a4eafcde3cb7ab46b1dd629b33f8784ca9c6/config.json "HTTP/1.1 200 OK"
+2026-03-31 04:22:55 | INFO | httpx | HTTP Request: HEAD https://huggingface.co/google/siglip-base-patch16-256-multilingual/resolve/main/processor_config.json "HTTP/1.1 404 Not Found"
+2026-03-31 04:22:55 | INFO | httpx | HTTP Request: HEAD https://huggingface.co/google/siglip-base-patch16-256-multilingual/resolve/main/preprocessor_config.json "HTTP/1.1 307 Temporary Redirect"
+2026-03-31 04:22:55 | INFO | httpx | HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/google/siglip-base-patch16-256-multilingual/8952a4eafcde3cb7ab46b1dd629b33f8784ca9c6/preprocessor_config.json "HTTP/1.1 200 OK"
+2026-03-31 04:22:55 | INFO | httpx | HTTP Request: HEAD https://huggingface.co/google/siglip-base-patch16-256-multilingual/resolve/main/processor_config.json "HTTP/1.1 404 Not Found"
+2026-03-31 04:22:55 | INFO | httpx | HTTP Request: HEAD https://huggingface.co/google/siglip-base-patch16-256-multilingual/resolve/main/preprocessor_config.json "HTTP/1.1 307 Temporary Redirect"
+2026-03-31 04:22:55 | INFO | httpx | HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/google/siglip-base-patch16-256-multilingual/8952a4eafcde3cb7ab46b1dd629b33f8784ca9c6/preprocessor_config.json "HTTP/1.1 200 OK"
+2026-03-31 04:22:55 | INFO | httpx | HTTP Request: GET https://huggingface.co/api/models/google/siglip-base-patch16-256-multilingual/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-03-31 04:22:56 | INFO | httpx | HTTP Request: HEAD https://huggingface.co/google/siglip-base-patch16-256-multilingual/resolve/main/processor_config.json "HTTP/1.1 404 Not Found"
+2026-03-31 04:22:56 | INFO | httpx | HTTP Request: HEAD https://huggingface.co/google/siglip-base-patch16-256-multilingual/resolve/main/chat_template.json "HTTP/1.1 404 Not Found"
+2026-03-31 04:22:56 | INFO | httpx | HTTP Request: HEAD https://huggingface.co/google/siglip-base-patch16-256-multilingual/resolve/main/chat_template.jinja "HTTP/1.1 404 Not Found"
+2026-03-31 04:22:56 | INFO | httpx | HTTP Request: HEAD https://huggingface.co/google/siglip-base-patch16-256-multilingual/resolve/main/audio_tokenizer_config.json "HTTP/1.1 404 Not Found"
+2026-03-31 04:22:56 | INFO | httpx | HTTP Request: HEAD https://huggingface.co/google/siglip-base-patch16-256-multilingual/resolve/main/processor_config.json "HTTP/1.1 404 Not Found"
+2026-03-31 04:22:56 | INFO | httpx | HTTP Request: HEAD https://huggingface.co/google/siglip-base-patch16-256-multilingual/resolve/main/preprocessor_config.json "HTTP/1.1 307 Temporary Redirect"
+2026-03-31 04:22:56 | INFO | httpx | HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/google/siglip-base-patch16-256-multilingual/8952a4eafcde3cb7ab46b1dd629b33f8784ca9c6/preprocessor_config.json "HTTP/1.1 200 OK"
+2026-03-31 04:22:56 | INFO | httpx | HTTP Request: HEAD https://huggingface.co/google/siglip-base-patch16-256-multilingual/resolve/main/processor_config.json "HTTP/1.1 404 Not Found"
+2026-03-31 04:22:57 | INFO | httpx | HTTP Request: HEAD https://huggingface.co/google/siglip-base-patch16-256-multilingual/resolve/main/preprocessor_config.json "HTTP/1.1 307 Temporary Redirect"
+2026-03-31 04:22:57 | INFO | httpx | HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/google/siglip-base-patch16-256-multilingual/8952a4eafcde3cb7ab46b1dd629b33f8784ca9c6/preprocessor_config.json "HTTP/1.1 200 OK"
+2026-03-31 04:22:57 | INFO | httpx | HTTP Request: HEAD https://huggingface.co/google/siglip-base-patch16-256-multilingual/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-03-31 04:22:57 | INFO | httpx | HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/google/siglip-base-patch16-256-multilingual/8952a4eafcde3cb7ab46b1dd629b33f8784ca9c6/config.json "HTTP/1.1 200 OK"
+2026-03-31 04:22:57 | INFO | httpx | HTTP Request: HEAD https://huggingface.co/google/siglip-base-patch16-256-multilingual/resolve/main/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+2026-03-31 04:22:57 | INFO | httpx | HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/google/siglip-base-patch16-256-multilingual/8952a4eafcde3cb7ab46b1dd629b33f8784ca9c6/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-03-31 04:22:57 | INFO | httpx | HTTP Request: GET https://huggingface.co/api/models/google/siglip-base-patch16-256-multilingual/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-03-31 04:22:57 | INFO | httpx | HTTP Request: GET https://huggingface.co/api/models/google/siglip-base-patch16-256-multilingual/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-03-31 04:23:03 | ERROR | __main__ | Error running siglip_twoStage on damage_dataset: Caught ValueError in DataLoader worker process 1.
+Original Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/site-packages/torch/utils/data/_utils/worker.py", line 349, in _worker_loop
+    data = fetcher.fetch(index)  # type: ignore[possibly-undefined]
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/torch/utils/data/_utils/fetch.py", line 52, in fetch
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/torch/utils/data/_utils/fetch.py", line 52, in <listcomp>
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+            ~~~~~~~~~~~~^^^^^
+  File "/workspaces/damageVLMs-experiment/engine/dataloaders/twoStage.py", line 65, in __getitem__
+    inputs = self.processor(
+             ^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/transformers/processing_utils.py", line 681, in __call__
+    attribute_output = attribute(input_data, **kwargs[input_kwargs])
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/transformers/tokenization_utils_base.py", line 2490, in __call__
+    encodings = self._encode_plus(
+                ^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/transformers/tokenization_python.py", line 813, in _encode_plus
+    first_ids = get_input_ids(text)
+                ^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/transformers/tokenization_python.py", line 811, in get_input_ids
+    raise ValueError(f"Input must be a string, list of strings, or list of ints, got: {type(text)}")
+ValueError: Input must be a string, list of strings, or list of ints, got: <class 'float'>
+
+2026-03-31 04:23:03 | ERROR | __main__ | Traceback (most recent call last):
+  File "/workspaces/damageVLMs-experiment/train.py", line 112, in main
+    pipeline.run()
+  File "/workspaces/damageVLMs-experiment/pipelines/two_stage.py", line 73, in run
+    trainer_s1.fit(train_loader_s1, val_loader_s1, epochs=hp["stage1_epochs"])
+  File "/workspaces/damageVLMs-experiment/engine/trainers/two_stage.py", line 89, in fit
+    train_loss = self.train_epoch(train_loader)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspaces/damageVLMs-experiment/engine/trainers/two_stage.py", line 58, in train_epoch
+    for batch in train_loader:
+  File "/usr/local/lib/python3.11/site-packages/torch/utils/data/dataloader.py", line 733, in __next__
+    data = self._next_data()
+           ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/torch/utils/data/dataloader.py", line 1488, in _next_data
+    return self._process_data(data, worker_id)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/torch/utils/data/dataloader.py", line 1550, in _process_data
+    data.reraise()
+  File "/usr/local/lib/python3.11/site-packages/torch/_utils.py", line 750, in reraise
+    raise exception
+ValueError: Caught ValueError in DataLoader worker process 1.
+Original Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/site-packages/torch/utils/data/_utils/worker.py", line 349, in _worker_loop
+    data = fetcher.fetch(index)  # type: ignore[possibly-undefined]
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/torch/utils/data/_utils/fetch.py", line 52, in fetch
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/torch/utils/data/_utils/fetch.py", line 52, in <listcomp>
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+            ~~~~~~~~~~~~^^^^^
+  File "/workspaces/damageVLMs-experiment/engine/dataloaders/twoStage.py", line 65, in __getitem__
+    inputs = self.processor(
+             ^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/transformers/processing_utils.py", line 681, in __call__
+    attribute_output = attribute(input_data, **kwargs[input_kwargs])
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/transformers/tokenization_utils_base.py", line 2490, in __call__
+    encodings = self._encode_plus(
+                ^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/transformers/tokenization_python.py", line 813, in _encode_plus
+    first_ids = get_input_ids(text)
+                ^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/transformers/tokenization_python.py", line 811, in get_input_ids
+    raise ValueError(f"Input must be a string, list of strings, or list of ints, got: {type(text)}")
+ValueError: Input must be a string, list of strings, or list of ints, got: <class 'float'>
+
+
