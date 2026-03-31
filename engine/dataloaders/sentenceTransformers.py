@@ -23,7 +23,7 @@ class ImageTextSentenceTransformers(Dataset):
         text = row['post_text']
 
         # Carga de imagen
-        image = Image.open(os.path.join('disasterDataset', image_path).replace("\\", "/")).convert('RGB')
+        image = Image.open(os.path.join(image_path).replace("\\", "/")).convert('RGB')
 
         return image, text
 

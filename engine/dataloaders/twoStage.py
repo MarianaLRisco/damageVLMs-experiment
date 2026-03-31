@@ -58,7 +58,7 @@ class ImageTextTwoStage(Dataset):
         label = row['labels'] 
 
         # Load and process image
-        image = Image.open(os.path.join('disasterDataset',image_path).replace("\\", "/")).convert('RGB')
+        image = Image.open(os.path.join(image_path).replace("\\", "/")).convert('RGB')
 
         label = self.label2id[label]  
 
