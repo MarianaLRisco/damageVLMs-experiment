@@ -4,12 +4,12 @@ from transformers import AutoModel, AutoProcessor
 import transformers
 import open_clip
 import torch
-from fuse_clip.fuse_clip_utils import load_model
 import clip
 
 def load_siglip_pretrained(model_name=str):
     model = AutoModel.from_pretrained(model_name)
     processor = AutoProcessor.from_pretrained(model_name)
+
     return model, processor
 
 # mclip
@@ -44,8 +44,6 @@ def sentence_transformer_model_loader(device: str = 'cuda'):
 
 
 def fuselip_model_loader(device: str = 'cuda'):
-<<<<<<< Updated upstream
-=======
     """
     Carga modelo FuseLIP usando el wrapper simplificado.
     El wrapper configura PYTHONPATH y carga desde HuggingFace.
@@ -56,7 +54,6 @@ def fuselip_model_loader(device: str = 'cuda'):
         raise ImportError(
             "fuselip_wrapper no encontrado. Asegúrate de que fuselip_repo/ existe en el proyecto."
         )
->>>>>>> Stashed changes
     model, image_processor, text_tokenizer = load_model(
         "chs20/FuseLIP-S-CC3M-MM",
         device=device

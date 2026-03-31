@@ -1,6 +1,7 @@
 from PIL import Image, ImageFile
 import os
 import torch.nn as nn
+from torch.utils.data import Dataset
 import pandas as pd
 import torch
 

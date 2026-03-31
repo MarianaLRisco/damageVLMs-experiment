@@ -48,3 +48,18 @@
 2026-03-31 06:30:46 | INFO | httpx | HTTP Request: HEAD https://huggingface.co/google/siglip2-base-patch16-naflex/resolve/main/special_tokens_map.json "HTTP/1.1 307 Temporary Redirect"
 2026-03-31 06:30:46 | INFO | httpx | HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/google/siglip2-base-patch16-naflex/b53b807d3a2d5e2b3911292f2d69e5341cdc064c/special_tokens_map.json "HTTP/1.1 200 OK"
 2026-03-31 06:30:46 | INFO | httpx | HTTP Request: GET https://huggingface.co/api/resolve-cache/models/google/siglip2-base-patch16-naflex/b53b807d3a2d5e2b3911292f2d69e5341cdc064c/special_tokens_map.json "HTTP/1.1 200 OK"
+2026-03-31 06:50:14 | ERROR | __main__ | Error running siglip2_twoStage on damage_dataset: Parent directory checkpoints/siglip2_twoStage/siglip2_twoStage_stage1 does not exist.
+2026-03-31 06:50:14 | ERROR | __main__ | Traceback (most recent call last):
+  File "/workspaces/damageVLMs-experiment/train.py", line 112, in main
+  File "/workspaces/damageVLMs-experiment/pipelines/two_stage.py", line 74, in run
+  File "/workspaces/damageVLMs-experiment/engine/trainers/two_stage.py", line 106, in save
+  File "/usr/local/lib/python3.11/site-packages/torch/serialization.py", line 964, in save
+    with _open_zipfile_writer(f) as opened_zipfile:
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/torch/serialization.py", line 828, in _open_zipfile_writer
+    return container(name_or_buffer)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/torch/serialization.py", line 792, in __init__
+    torch._C.PyTorchFileWriter(
+RuntimeError: Parent directory checkpoints/siglip2_twoStage/siglip2_twoStage_stage1 does not exist.
+

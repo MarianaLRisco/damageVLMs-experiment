@@ -1,21 +1,58 @@
 import argparse
-import yaml
-from dataloaders.dataloader import get_dataloader
-from engine.trainer_base import Trainer
-from engine.trainer_twoStage import TrainerFirstStep, TrainerSecondStep
+import os
+import sys
+import warnings
 
-def load_config(path):
-    with open(path, "r") as f:
-        return yaml.safe_load(f)
+warnings.filterwarnings("ignore", message="pkg_resources is deprecated", category=UserWarning)
+warnings.filterwarnings("ignore", message="Setuptools is replacing distutils", category=UserWarning)
+
+# CRÍTICO: Configurar PYTHONPATH para FuseLIP ANTES de cualquier import
+# Esto asegura que se use la versión correcta de open_clip compatible con FuseLIP
+fuselip_src = os.path.join(os.path.dirname(__file__), 'fuselip_repo', 'src')
+if fuselip_src not in sys.path:
+    sys.path.insert(0, fuselip_src)
+
+# Enable MPS fallback for unsupported ops (Apple Silicon GPU)
+# This fixes: NotImplementedError for aten::_upsample_bilinear2d_aa_backward.grad_input
+os.environ["PYTORCH_ENABLE_MPS_FALLBACK"] = "1"
+
+# Allow MPS to use more unified memory (24GB on M4 Pro)
+# 0.0 = no limit (recommended for M4 Pro with 16GB+)
+os.environ["PYTORCH_MPS_HIGH_WATERMARK_RATIO"] = "0.0"
+
+# Make engine/ and models/ importable from root
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "engine"))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "models"))
+
+# Config
+from config_loaders.loader import load_config
+
+# Data
+from data.loader import load_damage_dataset, load_crisisMMD
+
+# Utils
+from utils.device import get_device
+from utils.logging import setup_logging, get_logger
+
+# Pipelines
+from pipelines.registry import get_pipeline
+from pipelines.base import PipelineConfig
+
+
+# ─────────────────────────────────────────
+# Main
+# ─────────────────────────────────────────
 
 def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--config", type=str, required=True)
+    parser = argparse.ArgumentParser(description="Run VLM disaster classification experiments")
+    parser.add_argument("--config", type=str, required=True, help="Path to YAML config")
+    parser.add_argument("--models", nargs="*", default=None, help="Run only these model names (optional filter)")
+    parser.add_argument("--datasets", nargs="*", default=None, help="Run only these dataset names (optional filter)")
+    parser.add_argument("--eval-only", action="store_true", help="Skip training, run zero-shot evaluation only")
     args = parser.parse_args()
+
+    # Load config
     config = load_config(args.config)
-<<<<<<< Updated upstream
-    
-=======
     config["device"] = get_device(config.get("device", "cuda"))
     config["eval_only"] = args.eval_only
 
@@ -78,15 +115,12 @@ def main():
 
                 pipeline.run()
 
-                logger.info(f"Completed: {model_name} on {dataset_name}")
+                logger.info(f" Completed: {model_name} on {dataset_name}")
             except Exception as e:
                 logger.error(f"Error running {model_name} on {dataset_name}: {e}")
                 import traceback
                 logger.error(traceback.format_exc())
->>>>>>> Stashed changes
 
-    
-    # Evaluator(model).run(val_dl)
 
 if __name__ == "__main__":
     main()

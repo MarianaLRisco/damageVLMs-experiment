@@ -1,0 +1,20 @@
+2026-03-31 07:27:06 | INFO | utils.logging | Logging initialized. Log file: outputs/run_configs_disaster_20260331_072706.log
+2026-03-31 07:27:06 | INFO | utils.logging | Config loaded from: configs/disaster.yaml
+2026-03-31 07:27:06 | INFO | utils.logging | Device: cuda
+2026-03-31 07:27:06 | INFO | utils.logging | Eval-only mode: False
+2026-03-31 07:27:06 | INFO | __main__ | ============================================================
+2026-03-31 07:27:06 | INFO | __main__ | Loading dataset: damage_dataset from dataset/damage_dataset
+2026-03-31 07:27:06 | INFO | __main__ | ============================================================
+2026-03-31 07:27:06 | INFO | __main__ | Train: 4761 | Val: 530 | Test: 588
+2026-03-31 07:27:06 | INFO | __main__ | ============================================================
+2026-03-31 07:27:06 | INFO | __main__ | [training] siglip2_twoStage | Dataset: damage_dataset
+2026-03-31 07:27:06 | INFO | __main__ | ============================================================
+2026-03-31 07:27:06 | ERROR | __main__ | Error running siglip2_twoStage on damage_dataset: load_siglip_pretrained() got an unexpected keyword argument 'device'
+2026-03-31 07:27:06 | ERROR | __main__ | Traceback (most recent call last):
+  File "/workspaces/damageVLMs-experiment/train.py", line 116, in main
+    pipeline.run()
+  File "/workspaces/damageVLMs-experiment/pipelines/two_stage.py", line 49, in run
+    base_model, processor = load_siglip_pretrained(pretrained, device=device)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: load_siglip_pretrained() got an unexpected keyword argument 'device'
+

@@ -36,14 +36,11 @@ RUN git clone https://github.com/FreddeFrallan/Multilingual-CLIP.git /tmp/Multil
 RUN bash /tmp/Multilingual-CLIP/legacy_get-weights.sh
 RUN pip install -e /tmp/Multilingual-CLIP
 
-<<<<<<< Updated upstream
-=======
 # Clonar FuseLIP repo (necesario para modelos fuselip_mlp)
 RUN git clone https://github.com/chs20/fuselip.git /workspaces/damageVLMs-experiment/fuselip_repo
 
 # Instalar dependencias específicas de FuseLIP
 RUN pip install omegaconf datasets einops timm k-diffusion torchvision
 
->>>>>>> Stashed changes
 # Comando por defecto
 CMD ["/bin/bash"]

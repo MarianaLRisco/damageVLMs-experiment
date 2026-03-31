@@ -18,8 +18,7 @@ class ContrastivePipeline(BasePipeline):
 
     def run(self) -> Dict:
         """Run contrastive training pipeline."""
-        dataset_name = self.cfg.dataset_cfg["name"]
-        hp = self.cfg.model_cfg["hyperparams"][dataset_name]
+        hp = self.cfg.model_cfg["hyperparams"]
         device = self.device
         pretrained = self.cfg.model_cfg["pretrained"]
         checkpoint = self.cfg.model_cfg["checkpoint"]
