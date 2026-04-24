@@ -2,6 +2,7 @@ import argparse
 import os
 import sys
 import warnings
+from typing import Any
 
 warnings.filterwarnings("ignore", message="pkg_resources is deprecated", category=UserWarning)
 warnings.filterwarnings("ignore", message="Setuptools is replacing distutils", category=UserWarning)
@@ -39,6 +40,76 @@ from pipelines.registry import get_pipeline
 from pipelines.base import PipelineConfig
 
 
+def _load_env_file(path: str = ".env") -> None:
+    if not os.path.exists(path):
+        return
+
+    with open(path, "r", encoding="utf-8") as env_file:
+        for line in env_file:
+            line = line.strip()
+            if not line or line.startswith("#"):
+                continue
+            if "=" not in line:
+                continue
+
+            key, value = line.split("=", 1)
+            key = key.strip()
+            value = value.strip().strip("\"'")
+            if key:
+                os.environ.setdefault(key, value)
+
+
+def _resolve_dataset_root(dataset_name: str, configured_root: str) -> str:
+    env_key = f"{dataset_name.upper()}_ROOT"
+    root = os.getenv(env_key) or os.getenv("DATASET_ROOT")
+    if not root:
+        return configured_root
+
+    dataset_root = os.path.expanduser(root.strip())
+    if not os.path.isdir(dataset_root):
+        return dataset_root
+
+    if os.path.basename(dataset_root) == dataset_name:
+        return dataset_root
+
+    # Dataset name may not match the real folder name (e.g. CrisisMMD_v2.0).
+    # Try common fallback candidates before falling back to the provided root.
+    fallback_names = {dataset_name}
+    if dataset_name == "crisisMMD":
+        fallback_names.update({"CrisisMMD_v2.0", "crisismmd_v2.0", "CrisisMMD"})
+
+    for candidate_name in fallback_names:
+        candidate = os.path.join(dataset_root, candidate_name)
+        if os.path.isdir(candidate):
+            return candidate
+
+    # Fallback: if root contains dataset-like folders, pick the first matching case-insensitive one.
+    for child in os.listdir(dataset_root):
+        if child.lower() == dataset_name.lower():
+            return os.path.join(dataset_root, child)
+
+    return dataset_root
+
+
+def _resolve_seed(cli_seed: int | None, config: dict[str, Any]) -> int:
+    """Resolve the effective random seed for a run.
+
+    CLI argument wins over config value. If neither is provided, return
+    a safe default.
+    """
+    configured_seed = config.get("seed")
+    if cli_seed is not None:
+        return cli_seed
+
+    if configured_seed is None:
+        return 42
+
+    try:
+        return int(configured_seed)
+    except (TypeError, ValueError) as err:
+        raise ValueError(f"Invalid seed in config: {configured_seed!r}") from err
+
+
 # ─────────────────────────────────────────
 # Main
 # ─────────────────────────────────────────
@@ -48,12 +119,15 @@ def main():
     parser.add_argument("--config", type=str, required=True, help="Path to YAML config")
     parser.add_argument("--models", nargs="*", default=None, help="Run only these model names (optional filter)")
     parser.add_argument("--datasets", nargs="*", default=None, help="Run only these dataset names (optional filter)")
+    parser.add_argument("--seed", type=int, default=None, help="Optional seed for reproducible runs (ConvNet only)")
     parser.add_argument("--eval-only", action="store_true", help="Skip training, run zero-shot evaluation only")
     args = parser.parse_args()
 
-    # Load config
+    # Load env and config
+    _load_env_file()
     config = load_config(args.config)
     config["device"] = get_device(config.get("device", "cuda"))
+    config["seed"] = _resolve_seed(args.seed, config)
     config["eval_only"] = args.eval_only
 
     # Setup logging (use first model/dataset combo for log directory)
@@ -62,6 +136,7 @@ def main():
 
     logger = setup_logging(log_output_dir, log_experiment_name)
     logger.info(f"Config loaded from: {args.config}")
+    logger.info(f"Seed: {config['seed']}")
     logger.info(f"Device: {config['device']}")
     logger.info(f"Eval-only mode: {config['eval_only']}")
 
@@ -73,7 +148,8 @@ def main():
             continue
 
         dataset_name = dataset_cfg["name"]
-        root = dataset_cfg["root"]
+        root = _resolve_dataset_root(dataset_cfg["name"], dataset_cfg["root"])
+        dataset_cfg["root"] = root
 
         logger.info("=" * 60)
         logger.info(f"Loading dataset: {dataset_name} from {root}")

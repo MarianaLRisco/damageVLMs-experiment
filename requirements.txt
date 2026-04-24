@@ -7,7 +7,6 @@ einops
 # Embeddings y CLIP
 sentence-transformers
 multilingual-clip
-
 ftfy
 
 # Datos y métricas
@@ -17,16 +16,14 @@ pandas
 numpy
 tqdm
 matplotlib
-seaborn 
+seaborn
 ipywidgets
 widgetsnbextension
 notebook
 langdetect
-sentence-transformers
-multilingual-clip
-open_clip_torch
-ftfy
+
+# ConvNet + pipelines
+torchvision
+
 argparse
 PyYAML
-
-

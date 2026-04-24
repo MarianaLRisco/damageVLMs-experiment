@@ -1,0 +1,43 @@
+datasets:
+  - name: "damage_dataset"
+    root: "dataset/damage_dataset"
+    classes:
+      - non_damage
+      - fires
+      - flood
+      - damaged_infrastructure
+      - damaged_nature
+      - human_damage
+    prompts:
+      english:
+        - "Image only"
+
+  - name: "crisisMMD"
+    root: "dataset/CrisisMMD_v2.0"
+    classes:
+      - informative
+      - not_informative
+    prompts:
+      english:
+        - "Image only"
+
+models:
+  - name: "efficientnet_b0"
+    num_classes: 0
+    image_size: 224
+    trainable_layers: 2
+    use_pretrained: true
+    hyperparams:
+      epochs: 6
+      batch_size: 32
+      num_workers: 2
+      lr: 1.0e-4
+      weight_decay: 3.0e-4
+
+output:
+  dir: "outputs/"
+  confusion_matrix_filename: "confusion_matrix.png"
+  metrics_log_filename: "metrics.txt"
+
+seed: 42
+device: "mps"

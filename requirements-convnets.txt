@@ -1,0 +1,13 @@
+# Requisitos mínimos para experimentar con ConvNets image-only en MacBook
+# Usar Python 3.11 dentro de .venv
+
+torch
+torchvision
+numpy
+pandas
+pillow
+PyYAML
+scikit-learn
+tqdm
+matplotlib
+seaborn

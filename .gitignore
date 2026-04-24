@@ -1,4 +1,5 @@
 data/
+.DS_Store
 .env
 wandb/
 __pycache__/
@@ -19,5 +20,17 @@ fuselip_repo/
 *.h5
 *.pt
 *.ckpt
+outputs/**/*.json
+outputs/**/*.txt
+outputs/**/*.log
+outputs/**/*.pth
 !results/logs/**/*.png
 !outputs/**/*.jpg
+.atl/
+benchmark_convnets.log
+seed_*.log
+tuning_*.log
+tuning_chain_*.log
+outputs_smoke/
+outputs_calibration*/
+outputs_tmp_*/
