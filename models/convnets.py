@@ -26,11 +26,6 @@ def build_model(model_name: str, num_classes: int, trainable_layers: int = 2):
         model.classifier[6] = nn.Linear(in_features, num_classes)
         feature_layers = list(model.features)
 
-    elif model_name == "inceptionv3":
-        model = models.ince(weights="IMAGENET1K_V1")
-        in_features = model.classifier[6].in_features
-        model.classifier[6] = nn.Linear(in_features, num_classes)
-        feature_layers = list(model.features)
 
 
     else:
