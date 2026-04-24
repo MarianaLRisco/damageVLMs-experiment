@@ -4,6 +4,21 @@
 
 Documentar formalmente el benchmark `ConvNet image-only` ya ejecutado en el proyecto, cubriendo la matriz completa **3 modelos x 2 datasets** (6 corridas), con evidencia trazable en logs, resúmenes y manifiestos de ejecución.
 
+### Estado del objetivo original
+
+El objetivo original del trabajo fue:
+
+> experimentar con modelos ConvNet clásicos en `damage_dataset` y `crisisMMD` usando **solo imágenes**.
+
+Ese objetivo se considera **cumplido** porque:
+
+- se implementó un flujo ConvNet image-only separado del pipeline VLM,
+- se ejecutó la matriz completa `3 modelos x 2 datasets`,
+- se validó el resultado base con corridas multi-seed para los dos candidatos principales,
+- y se definió una línea base técnica clara (`resnet50`).
+
+Las pruebas posteriores sobre `crisisMMD` (preprocesado robusto, augmentations y micro-tuning) deben leerse como trabajo **exploratorio adicional**, no como requisito para considerar completado el objetivo original.
+
 ## 2. Entorno de ejecución
 
 - Configuración cargada desde `configs/convnets_image_only.yaml`.
@@ -188,6 +203,19 @@ Con la evidencia conjunta (benchmark base + multi-seed + micro-tuning):
 2. Si se reabre tuning de `efficientnet_b0`, hacerlo con diseño mínimo multi-seed por variante (>=3 seeds) para evitar decisiones por seed único.
 3. Extender multi-seed a `vgg16` o reemplazarlo por una arquitectura más competitiva para cerrar comparación de estabilidad de alternativas.
 4. Consolidar reporte complementario con métricas por clase y macro-F1 como criterio secundario de selección.
+
+## 13. Cierre de alcance
+
+Desde el punto de vista del alcance original, este trabajo ya puede cerrarse con las siguientes conclusiones operativas:
+
+- **Baseline final ConvNet image-only:** `resnet50`
+- **Alternativa operativa:** `efficientnet_b0`
+- **Modelo descartado como baseline principal:** `vgg16`
+
+Si el proyecto continúa, lo siguiente ya no debería tratarse como “el experimento original”, sino como una nueva fase de investigación enfocada en:
+
+- mejorar el rendimiento sobre `crisisMMD`, o
+- comparar el baseline ConvNet contra nuevas familias/modelos.
 
 ---
 

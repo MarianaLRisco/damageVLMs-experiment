@@ -1,0 +1,32 @@
+datasets:
+  - name: "crisisMMD"
+    root: "dataset/CrisisMMD_v2.0"
+    classes:
+      - informative
+      - not_informative
+    image_preprocess_mode: "rgbsafe"
+    prompts:
+      english:
+        - "Image only"
+
+models:
+  - name: "resnet50"
+    num_classes: 0
+    image_size: 224
+    trainable_layers: 2
+    use_pretrained: true
+    hyperparams:
+      epochs: 6
+      batch_size: 16
+      num_workers: 2
+      lr: 2.0e-4
+      weight_decay: 1.0e-4
+
+output:
+  dir: "outputs/convnets_crisismmd_resnet50_rgbsafe/"
+  confusion_matrix_filename: "confusion_matrix.png"
+  metrics_log_filename: "metrics.txt"
+
+seed: 42
+
+device: "mps"

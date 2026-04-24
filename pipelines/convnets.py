@@ -169,6 +169,7 @@ class ConvNetPipeline(BasePipeline):
             num_workers,
             seed,
         )
+        image_preprocess_mode = str(self.cfg.dataset_cfg.get("image_preprocess_mode", "legacy_rgb"))
 
         trainable_params = [p for p in model.parameters() if p.requires_grad]
         if not trainable_params:
@@ -226,6 +227,7 @@ class ConvNetPipeline(BasePipeline):
         manifest_data = self._build_run_manifest(
             dataset_classes=dataset_classes,
             num_classes=num_classes,
+            image_preprocess_mode=image_preprocess_mode,
             seed=seed,
             loader_seed_policy=dataloader_seed_policy,
             dataloader_workers=num_workers,
@@ -352,6 +354,7 @@ class ConvNetPipeline(BasePipeline):
         self,
         dataset_classes: Sequence[str],
         num_classes: int,
+        image_preprocess_mode: str,
         seed: int,
         loader_seed_policy: str,
         dataloader_workers: int,
@@ -378,6 +381,7 @@ class ConvNetPipeline(BasePipeline):
                     "name": self.cfg.dataset_cfg["name"],
                     "classes": list(dataset_classes),
                     "num_classes": num_classes,
+                    "image_preprocess_mode": image_preprocess_mode,
                 },
                 "global_output_dir": self.cfg.global_config["output"]["dir"],
                 "hyperparams": dict(hp),
@@ -478,8 +482,14 @@ class ConvNetPipeline(BasePipeline):
     ) -> Tuple[DataLoader, DataLoader, DataLoader]:
         """Build train/val/test loaders for image-only ConvNets."""
         num_workers, _ = self._resolve_dataloader_workers(num_workers, seed)
+        augmentation_cfg = self.cfg.dataset_cfg.get("train_augmentations")
+        image_preprocess_mode = str(self.cfg.dataset_cfg.get("image_preprocess_mode", "legacy_rgb"))
 
-        train_transform = build_image_transform(image_size, is_train=True)
+        train_transform = build_image_transform(
+            image_size=image_size,
+            is_train=True,
+            augmentation_cfg=augmentation_cfg,
+        )
         valid_transform = build_image_transform(image_size, is_train=False)
 
         pin_memory = self.device == "cuda"
@@ -494,19 +504,34 @@ class ConvNetPipeline(BasePipeline):
             loader_params["worker_init_fn"] = partial(_seed_worker, base_seed=seed)
 
         train_loader = DataLoader(
-            ImageOnlyDataset(self.cfg.train_df, dataset_classes, transform=train_transform),
+            ImageOnlyDataset(
+                self.cfg.train_df,
+                dataset_classes,
+                transform=train_transform,
+                preprocess_mode=image_preprocess_mode,
+            ),
             shuffle=True,
             generator=self._make_loader_generator(seed, split_index=0),
             **loader_params,
         )
         val_loader = DataLoader(
-            ImageOnlyDataset(self.cfg.val_df, dataset_classes, transform=valid_transform),
+            ImageOnlyDataset(
+                self.cfg.val_df,
+                dataset_classes,
+                transform=valid_transform,
+                preprocess_mode=image_preprocess_mode,
+            ),
             shuffle=False,
             generator=self._make_loader_generator(seed, split_index=1),
             **loader_params,
         )
         test_loader = DataLoader(
-            ImageOnlyDataset(self.cfg.test_df, dataset_classes, transform=valid_transform),
+            ImageOnlyDataset(
+                self.cfg.test_df,
+                dataset_classes,
+                transform=valid_transform,
+                preprocess_mode=image_preprocess_mode,
+            ),
             shuffle=False,
             generator=self._make_loader_generator(seed, split_index=2),
             **loader_params,
