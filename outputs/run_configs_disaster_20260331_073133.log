@@ -37,3 +37,12 @@
 2026-03-31 07:31:37 | INFO | httpx | HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/google/siglip2-base-patch16-naflex/b53b807d3a2d5e2b3911292f2d69e5341cdc064c/tokenizer_config.json "HTTP/1.1 200 OK"
 2026-03-31 07:31:37 | INFO | httpx | HTTP Request: GET https://huggingface.co/api/models/google/siglip2-base-patch16-naflex/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
 2026-03-31 07:31:37 | INFO | httpx | HTTP Request: GET https://huggingface.co/api/models/google/siglip2-base-patch16-naflex/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-03-31 07:51:04 | ERROR | __main__ | Error running siglip2_twoStage on damage_dataset: SigLIP2LinearClassifier.__init__() got an unexpected keyword argument 'processor'
+2026-03-31 07:51:04 | ERROR | __main__ | Traceback (most recent call last):
+  File "/workspaces/damageVLMs-experiment/train.py", line 116, in main
+    pipeline.run()
+  File "/workspaces/damageVLMs-experiment/pipelines/two_stage.py", line 84, in run
+    classifier = SigLIP2LinearClassifier(
+                 ^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: SigLIP2LinearClassifier.__init__() got an unexpected keyword argument 'processor'
+

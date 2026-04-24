@@ -1,0 +1,7 @@
+2026-03-31 08:43:27 | INFO | utils.logging | Logging initialized. Log file: outputs/run_configs_disaster_20260331_084327.log
+2026-03-31 08:43:27 | INFO | utils.logging | Config loaded from: configs/disaster.yaml
+2026-03-31 08:43:27 | INFO | utils.logging | Device: cuda
+2026-03-31 08:43:27 | INFO | utils.logging | Eval-only mode: False
+2026-03-31 08:43:27 | INFO | __main__ | ============================================================
+2026-03-31 08:43:27 | INFO | __main__ | Loading dataset: crisisMMD from dataset/CrisisMMDv2_0
+2026-03-31 08:43:27 | INFO | __main__ | ============================================================
